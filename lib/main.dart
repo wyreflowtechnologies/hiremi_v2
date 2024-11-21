@@ -14,10 +14,36 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'pre dashboard',
       theme: ThemeData(
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: TextTheme(
+
+          bodyMedium: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: MediaQuery.of(context).size.width*0.035,
+            fontWeight: FontWeight.w500,
+          ),
+           titleLarge: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: MediaQuery.of(context).size.width * 0.07,
+            fontWeight: FontWeight.w800,
+            color: const Color(0xFF163EC8),
+          ),
+          bodySmall: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: MediaQuery.of(context).size.width * 0.03,
+            fontWeight: FontWeight.w400,
+            color: Colors.grey,
+          ),
+          headlineSmall: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: MediaQuery.of(context).size.width * 0.07,
+            color: const Color(0xFF6983D9),
+          ),
+        ),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+        
+      
       home: SplashScreen(),
     );
   }

@@ -79,7 +79,7 @@ class _ForgotPassState extends State<ForgotPass> {
                 Padding(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03,),
                   child: Image.asset(
-                    'assets/images/hireme_logo.png',
+                    'assets/images/logo (1).png',
                     width: MediaQuery.of(context).size.width * 0.6,
                   ),
                 ),
