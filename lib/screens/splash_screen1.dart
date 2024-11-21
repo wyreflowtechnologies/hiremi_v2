@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/splash_screen2.dart'; 
+import 'package:pre_dashboard/screens/splashscreen3.dart';
+import '../screens/splash_screen2.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,20 +13,15 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
+  late double endScale;
+
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1), // Animation speed doubled
       vsync: this,
-    );
-
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 8.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
     );
 
     Future.delayed(Duration(seconds: 2), () {
@@ -33,11 +29,26 @@ class _SplashScreenState extends State<SplashScreen>
         _controller.forward().then((_) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => NextScreen()),
+            MaterialPageRoute(builder: (context) => FinalScreen()),
           );
         });
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    endScale = MediaQuery.of(context).size.height /
+        (MediaQuery.of(context).size.width * 0.15);
+
+    _scaleAnimation = Tween<double>(begin: .5, end: endScale).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
   }
 
   @override
@@ -71,8 +82,8 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _scaleAnimation.value,
                 child: SvgPicture.asset(
                   'assets/images/tie.svg',
-                  width: screenWidth * 0.25,
-                  height: screenHeight * 0.25,
+                  width: screenWidth * 0.15,
+                  height: screenHeight * 0.15,
                 ),
               );
             },
