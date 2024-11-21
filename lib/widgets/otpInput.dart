@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../Const/AppColor.dart';
 import '../Model/enum.dart';
+import '../constants/constants.dart';
 
 class OtpInputField extends StatelessWidget {
   final TextEditingController controller;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiremi/Screens/timeResend.dart';
-import '../Const/AppColor.dart';
+import 'package:pre_dashboard/screens/forgot_pass.dart';
+import '../screens/timeResend.dart';
+import '../constants/constants.dart';
 import '../Model/enum.dart';
 import '../Widgets/otpInput.dart';
 
@@ -61,6 +62,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         _otpStatus = OtpStatus.success;
         _isVerified = true;
         _timer?.cancel();
+        Navigator.push(context,MaterialPageRoute(builder: (context)=> ForgotPass()));
       } else {
         _otpStatus = OtpStatus.error;
       }
@@ -158,16 +160,16 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 const SizedBox(height: 20),
                 RichText(
                   textAlign: TextAlign.center,
-                  text: const TextSpan(
+                  text:const TextSpan(
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.textPrimary,
+                      color: AppColors.textColor,
                     ),
                     children: [
                       TextSpan(text: 'Please, Enter your '),
                       TextSpan(
                         text: 'six digit',
-                        style: TextStyle(color: AppColors.linkUnderline),
+                        style: TextStyle(color: AppColors.swipeScreenTopTextFirst),
                       ),
                       TextSpan(
                         text: ' code that you have received in your mail box.',

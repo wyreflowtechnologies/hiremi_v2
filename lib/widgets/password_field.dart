@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:hiremi/colors.dart';
+import '../constants/constants.dart';
 
 
 class PasswordField extends StatefulWidget {
@@ -55,7 +55,7 @@ class _PasswordFieldState extends State<PasswordField> {
                 decoration: const BoxDecoration(
                   border: Border(right: BorderSide(color: AppColors.textField)), // Static grey border
                 ),
-                child: const Icon(
+                child:  Icon(
                   Icons.lock,
                   color: AppColors.lockIcon,
                 ),

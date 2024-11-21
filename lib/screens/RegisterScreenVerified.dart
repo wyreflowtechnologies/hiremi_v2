@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hire_mi/register_screen.dart';
+import 'package:pre_dashboard/screens/RegistrationScreen.dart';
+import '../screens/register_screen.dart';
 
 class RegisterScreenVerified extends StatelessWidget {
   @override

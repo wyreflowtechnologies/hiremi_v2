@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:swipe_start/constants/constants.dart';
+import 'package:pre_dashboard/screens/LoginScreen.dart';
+import 'package:pre_dashboard/screens/register_screen.dart';
+import '../constants/constants.dart';
 
-import 'package:swipe_start/screens/new.dart';
+import '../screens/new.dart';
 
 import '../widgets/swipable_element.dart';
 import '../widgets/slide_indicator.dart';
@@ -152,7 +154,7 @@ _pageController.animateToPage(
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const NewPage()));
+                            builder: (context) => LoginScreenUpdated()));
                   },
             ),
           

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hire_mi/RegisterScreenVerified.dart';
-import 'package:hire_mi/password_screen.dart';
+import '../screens/RegisterScreenVerified.dart';
+import '../screens/password_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class RegisterScreenFirst extends StatefulWidget {
+  const RegisterScreenFirst({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterScreenFirst> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends State<RegisterScreenFirst> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pre_dashboard/screens/password_recovery_page_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({Key? key}) : super(key: key);
@@ -165,7 +166,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                             ),
                             // Submit Button with Glow Effect
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=> PasswordRecoveryPageScreen()));
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xff0F3CC9),
                                 shape: RoundedRectangleBorder(

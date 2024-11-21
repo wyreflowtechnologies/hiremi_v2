@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wyreflow_intern_ayush/task_20_11_24/splashscreen3.dart';
+import '../screens/splashscreen3.dart';
 
 class NextScreen extends StatefulWidget {
   @override

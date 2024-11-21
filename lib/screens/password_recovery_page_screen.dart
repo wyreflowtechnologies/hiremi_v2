@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'otpScreen.dart'; // Import the OTP screen
 
-import '../colors.dart';
+import '../constants/constants.dart';
 
 class PasswordRecoveryPageScreen extends StatefulWidget {
   const PasswordRecoveryPageScreen({super.key});
@@ -31,13 +31,15 @@ class _PasswordRecoveryPageScreenState
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
+    final color = AppColors();
+
     // Helper function for responsive text size
     double responsiveFontSize(double baseFontSize) {
       return baseFontSize * screenWidth / 375;
     }
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(
@@ -130,7 +132,7 @@ class _PasswordRecoveryPageScreenState
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: AppColors.textFieldBorderColor,
+                          color: AppColors.primaryColor,
                           width: 2.0,
                         ),
                       ),
@@ -207,7 +209,7 @@ class _PasswordRecoveryPageScreenState
                   child: Text(
                     "Send OTP",
                     style: TextStyle(
-                      color: AppColors.buttonTextColor,
+                      color: AppColors.textColor,
                       fontSize: responsiveFontSize(16),
                       fontWeight: FontWeight.bold,
                     ),
@@ -266,7 +268,7 @@ class AppLogo extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Image.asset(
-      'assets/images/hireme.png',
+      'assets/images/hireme_logo.png',
       width: screenWidth * 0.16,
       height: screenWidth * 0.07,
     );

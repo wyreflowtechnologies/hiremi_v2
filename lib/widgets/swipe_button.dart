@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 
-import '../decorations/custom_color.dart';
+import '../constants/constants.dart';
+
+
 
 class CustomSwipedButton extends StatelessWidget {
   const CustomSwipedButton({super.key,required this.isDragged,required this.onSwipeStart,required this.onSwipeEnd});
@@ -14,7 +16,7 @@ class CustomSwipedButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final theme = Theme.of(context);
-    final customColors = theme.extension<CustomColors>()!;
+    
 
 
     return   Padding(
@@ -29,7 +31,7 @@ class CustomSwipedButton extends StatelessWidget {
                   //     // ?customColors.swipeGradient
                   //     : null,
                   border: Border.all(
-                    color: customColors.swipeBorderColor,
+                    color: AppColors.primaryColor,
                     width: MediaQuery.of(context).size.width * 0.005,
                   ),
                   borderRadius: BorderRadius.circular(
@@ -47,7 +49,7 @@ class CustomSwipedButton extends StatelessWidget {
                     Icons.chevron_right,
                     color: Colors.white,
                   ),
-                  activeThumbColor: customColors.swipeThumbColor,
+                  activeThumbColor: AppColors.primaryColor,
                   activeTrackColor: Colors.transparent,
                   
                   onSwipe: () {},
@@ -56,7 +58,7 @@ class CustomSwipedButton extends StatelessWidget {
                   child: Text(
                     isDragged? "Lets Go": "Swipe To start",
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: customColors.swipeBorderColor,
+                      color: AppColors.primaryColor,
                     ),
                   )
                 ),

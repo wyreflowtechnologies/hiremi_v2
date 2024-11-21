@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../wigdets/background.dart';
-import '../wigdets/password_field.dart';
-import '../wigdets/reset_button.dart';
-import 'package:hiremi/colors.dart';
+import '../constants/constants.dart';
+
+import '../widgets/background.dart';
+import '../widgets/password_field.dart';
+import '../widgets/reset_button.dart';
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({super.key});
@@ -78,7 +79,7 @@ class _ForgotPassState extends State<ForgotPass> {
                 Padding(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03,),
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/hireme_logo.png',
                     width: MediaQuery.of(context).size.width * 0.6,
                   ),
                 ),
@@ -169,7 +170,7 @@ class _ForgotPassState extends State<ForgotPass> {
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w400,
                         fontSize: MediaQuery.of(context).size.width * 0.03,
-                        color: _errorMessage != null ? AppColors.errorMsg :  Colors.black,
+                        color: _errorMessage != null ? AppColors.error :  Colors.black,
                       ),
                     ),
                   ),

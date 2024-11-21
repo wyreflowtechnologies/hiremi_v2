@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wyreflow_intern_ayush/task_20_11_24/splash_screen2.dart';
+import '../screens/splash_screen2.dart'; 
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -70,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen>
               return Transform.scale(
                 scale: _scaleAnimation.value,
                 child: SvgPicture.asset(
-                  'lib/assets/tie.svg',
+                  'assets/images/tie.svg',
                   width: screenWidth * 0.25,
                   height: screenHeight * 0.25,
                 ),

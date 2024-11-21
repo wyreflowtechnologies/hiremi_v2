@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiremi_project/New%20folder/Colors.dart';
-import 'package:hiremi_project/New%20folder/Component/custom_text_field.dart';
-import 'package:hiremi_project/New%20folder/RegistrationScreen.dart';
+import 'package:pre_dashboard/screens/register_screen.dart';
+import '../constants/constants.dart';
+import '../widgets/custom_text_field.dart';
+import '../screens/RegistrationScreen.dart';
 
 class LoginScreenUpdated extends StatefulWidget {
   @override
@@ -182,7 +183,7 @@ class _LoginScreenUpdatedState extends State<LoginScreenUpdated> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RegisterScreen(),
+                          builder: (context) => RegisterScreenFirst(),
                         ),
                       );
                     },

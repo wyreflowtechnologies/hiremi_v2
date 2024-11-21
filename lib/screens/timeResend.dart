@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Const/AppColor.dart';
+import '../constants/constants.dart';
 
 class TimerResendSection extends StatelessWidget {
   final int timeLeft;
@@ -32,7 +32,7 @@ class TimerResendSection extends StatelessWidget {
             minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          child: const Text(
+          child: Text(
             "Resend Code",
             style: TextStyle(
               fontSize: 14,
@@ -50,7 +50,7 @@ class TimerResendSection extends StatelessWidget {
         Text(
           timerText,
           style: const TextStyle(
-            color: AppColors.grey,
+            color: Colors.grey,
             fontSize: 14,
           ),
         ),
@@ -65,7 +65,7 @@ class TimerResendSection extends StatelessWidget {
             "Resend Code",
             style: TextStyle(
               fontSize: 14,
-              color: timeLeft == 0 ? AppColors.linkUnderline : AppColors.grey,
+              color: timeLeft == 0 ? AppColors.linkUnderline : Colors.grey,
               decoration: TextDecoration.underline,
             ),
           ),

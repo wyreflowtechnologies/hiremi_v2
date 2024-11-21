@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../constants/constants.dart';
 import '../decorations/custom_color.dart';
 
 
@@ -30,7 +31,7 @@ class CustomSlideIndicator extends StatelessWidget {
                       // strokeWidth:  1.5,    
                       
                       dotColor:  const Color(0xFFD4D4D4),    
-                      activeDotColor:  Theme.of(context).extension<CustomColors>()!.swipeBorderColor,  
+                      activeDotColor:  AppColors.primaryColor,  
                         ), 
                         
               ),

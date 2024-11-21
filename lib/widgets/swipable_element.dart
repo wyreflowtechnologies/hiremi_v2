@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:swipe_start/widgets/bottom_section.dart';
-import 'package:swipe_start/widgets/middle_section.dart';
-import 'package:swipe_start/widgets/topText_section.dart';
+import 'package:pre_dashboard/widgets/bottom_section.dart';
+import 'package:pre_dashboard/widgets/middle_section.dart';
+import 'package:pre_dashboard/widgets/topText_section.dart';
+
 
 
 class SwipableElement extends StatelessWidget {

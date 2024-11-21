@@ -17,7 +17,7 @@ class TopTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextConstants textConstants = TextConstants();
-    final customColors = Theme.of(context).extension<CustomColors>()!;
+    // final customColors = Theme.of(context).extension<CustomColors>()!;
     final textTheme = Theme.of(context).textTheme;
 
     return Column(
@@ -46,7 +46,7 @@ class TopTextSection extends StatelessWidget {
                         TextSpan(
                           text: textConstants.kPage1TopTextSecondSecondHalf,
                           style: textTheme.titleLarge!.copyWith(
-                            color: customColors.swipeBorderColor,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                       ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hiremi_project/New%20folder/Colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiremi_project/New%20folder/Component/custom_text_field.dart';
-import 'package:hiremi_project/New%20folder/LoginScreen.dart';
+import 'package:pre_dashboard/screens/RegisterScreen0.dart';
+import '../constants/constants.dart';
+import '../widgets/custom_text_field.dart';
+import '../screens/LoginScreen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -190,6 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ElevatedButton(
                   onPressed: () {
                     debugPrint('Gender: $selectedGender');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen0()));
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(
@@ -225,7 +227,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size.width * 0.02),
           border: Border.all(
-            color: AppColors.textFieldBorderColor,
+            color: AppColors.primaryColor,
           ),
           color: const Color(0xffF1F4FF),
         ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiremi_project/New%20folder/Colors.dart';
+
+import '../constants/constants.dart';
+
+
+
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -103,14 +107,14 @@ class CustomTextField extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.border,
                         width: 1,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.border,
                         width: 1,
                       ),
                     ),
@@ -152,14 +156,14 @@ class CustomTextField extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.border,
                         width: 1,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.border,
                         width: 1,
                       ),
                     ),

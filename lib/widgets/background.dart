@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hiremi/colors.dart';
+import '../constants/constants.dart';
 
 class BackgroundCircle extends StatelessWidget {
   const BackgroundCircle({super.key});

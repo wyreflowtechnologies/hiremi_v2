@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hiremi/colors.dart';
+import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResetButton extends StatelessWidget {
@@ -19,7 +19,7 @@ class ResetButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor:  AppColors.resetBtn,
+            backgroundColor:  AppColors.primaryColor,
             padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
