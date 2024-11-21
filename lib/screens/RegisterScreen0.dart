@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pre_dashboard/screens/register_screen.dart';
 
 import 'OtpVerificationScreen.dart';
 import 'RegisterScreenVerified.dart';
@@ -24,7 +25,7 @@ class _RegisterScreen0State extends State<RegisterScreen0> {
       if (_isEmailVerified) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
+          MaterialPageRoute(builder: (context) => RegisterScreenEducational()),
         );
       }
     });

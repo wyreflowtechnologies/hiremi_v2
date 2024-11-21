@@ -64,7 +64,7 @@ class _PasswordRecoveryPageScreenState
                   fontFamily: 'Poppins',
                   fontSize: responsiveFontSize(22),
                   fontWeight: FontWeight.w500,
-                  height: 1.5,
+                  height: MediaQuery.of(context).size.width * 0.001,
                   color: AppColors.textColor,
                 ),
               ),
@@ -209,7 +209,7 @@ class _PasswordRecoveryPageScreenState
                   child: Text(
                     "Send OTP",
                     style: TextStyle(
-                      color: AppColors.textColor,
+                      color: AppColors.white,
                       fontSize: responsiveFontSize(16),
                       fontWeight: FontWeight.bold,
                     ),
