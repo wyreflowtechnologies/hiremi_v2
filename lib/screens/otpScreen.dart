@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import 'package:flutter/gestures.dart';
+=======
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:pre_dashboard/screens/forgot_pass.dart';
+<<<<<<< HEAD
+=======
+import '../screens/timeResend.dart';
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
 import '../constants/constants.dart';
 import '../Model/enum.dart';
 import '../Widgets/otpInput.dart';
@@ -51,6 +58,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     });
   }
 
+<<<<<<< HEAD
   void resendOtp() {
     startTimer();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -60,6 +68,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     );
   }
 
+=======
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
   void validateOtp() {
     setState(() {
       if (_otpController.text.length != 6) {
@@ -71,10 +81,14 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         _otpStatus = OtpStatus.success;
         _isVerified = true;
         _timer?.cancel();
+<<<<<<< HEAD
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ForgotPass()),
         );
+=======
+        Navigator.push(context,MaterialPageRoute(builder: (context)=> ForgotPass()));
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
       } else {
         _otpStatus = OtpStatus.error;
       }
@@ -115,6 +129,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ),
                 const SizedBox(height: 40),
                 Align(
+<<<<<<< HEAD
                   alignment: Alignment.center,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 4.0, bottom: 8.0),
@@ -140,6 +155,32 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     ),
                   ),
                 ),
+=======
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 4.0, bottom: 8.0),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Enter One Time Password",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "*",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
                 OtpInputField(
                   controller: _otpController,
                   otpStatus: _otpStatus,
@@ -165,14 +206,28 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     ),
                   ),
                 const SizedBox(height: 20),
+<<<<<<< HEAD
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     style: const TextStyle(
+=======
+                TimerResendSection(
+                  timeLeft: _timeLeft,
+                  isVerified: _isVerified,
+                  onResend: startTimer,
+                ),
+                const SizedBox(height: 20),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text:const TextSpan(
+                    style: TextStyle(
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
                       fontSize: 14,
                       color: AppColors.textColor,
                     ),
                     children: [
+<<<<<<< HEAD
                       const TextSpan(text: 'Please, Enter your '),
                       const TextSpan(
                         text: 'six digit',
@@ -190,6 +245,15 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()..onTap = resendOtp,
+=======
+                      TextSpan(text: 'Please, Enter your '),
+                      TextSpan(
+                        text: 'six digit',
+                        style: TextStyle(color: AppColors.swipeScreenTopTextFirst),
+                      ),
+                      TextSpan(
+                        text: ' code that you have received in your mail box.',
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
                       ),
                     ],
                   ),

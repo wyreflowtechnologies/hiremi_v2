@@ -8,7 +8,11 @@ plugins {
 android {
     namespace = "com.example.pre_dashboard"
     compileSdk = flutter.compileSdkVersion
+<<<<<<< HEAD
     ndkVersion = "27.0.12077973"
+=======
+    ndkVersion = flutter.ndkVersion
+>>>>>>> 9f85099e04cbdce6aa94fab2d0cf6850cf6e2447
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
