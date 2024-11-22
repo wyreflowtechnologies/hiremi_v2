@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pre_dashboard/screens/OtpVerificationScreen.dart';
+import 'package:pre_dashboard/screens/new1.dart';
 import 'package:pre_dashboard/screens/splash_screen1.dart';
 
 void main() {

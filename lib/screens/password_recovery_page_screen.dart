@@ -49,7 +49,7 @@ class _PasswordRecoveryPageScreenState
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: screenHeight * 0.05),
+              SizedBox(height: screenHeight * 0.01),
 
               // App Logo
               const AppLogo(),

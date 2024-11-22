@@ -20,11 +20,11 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     _controller = AnimationController(
-      duration: Duration(seconds: 1), // Animation speed doubled
+      duration: Duration(milliseconds: 500), // Animation speed doubled
       vsync: this,
     );
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       if (mounted) {
         _controller.forward().then((_) {
           Navigator.pushReplacement(

@@ -186,7 +186,7 @@ class _LoginScreenUpdatedState extends State<LoginScreenUpdated> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RegisterScreen(),
+                          builder: (context) => RegisterScreenEducational(),
                         ),
                       );
                     },

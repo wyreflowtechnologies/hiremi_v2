@@ -2,11 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pre_dashboard/screens/LoginScreen.dart';
-import 'package:pre_dashboard/screens/register_screen.dart';
 import '../constants/constants.dart';
-
-import '../screens/new.dart';
-
 import '../widgets/swipable_element.dart';
 import '../widgets/slide_indicator.dart';
 import '../widgets/swipe_button.dart';
@@ -41,16 +37,7 @@ class _SwipableStartScreenState extends State<SwipableStartScreen> {
     super.initState();
 
     _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-      // if (_currentPageIndex < _totalPages - 1) {
-      //   _currentPageIndex++;
-      //   _pageController.animateToPage(
-      //     _currentPageIndex,
-      //     duration: const Duration(milliseconds: 500),
-      //     curve: Curves.easeInOut,
-      //   );
-      // } else {
-      //   _timer.cancel();
-      // }
+    
       if (_currentPageIndex < _totalPages - 1) {
   _currentPageIndex++;
 } else {
