@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'RegisterScreenVerified.dart';
+// import 'RegisterScreenVerified.dart';
 //import 'register_screen_verified.dart';
 
 class OTPVerificationScreen extends StatelessWidget {
@@ -46,10 +46,10 @@ class OTPVerificationScreen extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterScreenVerified()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => RegisterScreenVerified()),
+                // );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff0F3CC9),

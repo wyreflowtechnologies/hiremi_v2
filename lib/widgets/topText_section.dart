@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
-import '../decorations/custom_color.dart';
 
 class TopTextSection extends StatelessWidget {
   const TopTextSection({

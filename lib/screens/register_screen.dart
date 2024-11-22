@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pre_dashboard/screens/LoginScreen.dart';
-import 'package:pre_dashboard/widgets/step1_content.dart';
+import 'package:pre_dashboard/widgets/custom_password_field.dart';
+import 'package:pre_dashboard/widgets/content_pages/step1_content.dart';
+import 'package:pre_dashboard/widgets/content_pages/step2_content.dart';
+import 'package:pre_dashboard/widgets/content_pages/step3_content.dart';
 
 import '../constants/constants.dart';
 import '../widgets/custom_text_field.dart';
@@ -196,8 +199,29 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             print(selectedGender);
                               });
                         }),
-                      _buildStep2Content(screenWidth,screenHeight),
-                      _buildStep3Content(screenWidth, screenHeight),
+                        Step2Content(
+                          email: email, 
+                          isEmailVerified: isEmailVerified, 
+                          phoneNumber: phoneNumber, 
+                          showOtpScreen: showOtpScreen,
+                          onChangedEmail: (value){
+                            setState(() {
+                              email = value;                              
+                            });
+                          },
+                          onChangedPhone: (value){
+                            setState(() {
+                              phoneNumber = value;
+                            });
+                          },
+                          onVerifyTap: (){
+                            setState(() {
+                              showOtpScreen = true;
+                            });
+                          },
+                          ),
+                      
+                     const Step3Content(),
                       _buildPasswordScreenPlaceholder(screenHeight),
                       // Placeholder for PasswordScreen
                     ],
@@ -297,121 +321,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   
  
 
-  Widget _buildStep2Content(double screenWidth,double ScreenHeight) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Email Address*",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  email = value;
-                });
-              },
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                suffixIcon: isEmailVerified? Image.asset('assets/images/check.png'):Image.asset('assets/images/exclaim.png') ,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16), // Rounded border
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                 Spacer(),
-                isEmailVerified? 
-                Container(
-                  width: MediaQuery.of(context).size.width*0.8,
-                  decoration: BoxDecoration(
-                    // border: Border.all(
-                    //   width: 1.0
-                    // ),
-                    borderRadius: BorderRadius.circular(2)
-                  ),
-                  child: Text("Your Email has been verified",
-                  style: TextStyle(
-                    color: AppColors.linkUnderline,
-                  ),
-                  )
-                ):
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      showOtpScreen = true;
-                    });
-                  },
-                  style:  ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff0F3CC9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                  child: const Text("Verify Now",
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Phone Number*",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  phoneNumber = value;
-                });
-              },
-              controller: _phoneController,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: "Enter your phone number",
-                 suffixIcon: phoneNumber.length == 10 ? Image.asset('assets/images/check.png'):Image.asset('assets/images/exclaim.png') ,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16), // Rounded border
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
+  
   Widget _buildOtpOverlay(BuildContext context) {
   return GestureDetector(
     onTap: () => FocusScope.of(context).unfocus(), // Dismiss keyboard
@@ -510,7 +420,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("Invalid OTP"),
-                            backgroundColor: Colors.red,
+                            backgroundColor: AppColors.primaryColor,
                           ),
                         );
                       }
@@ -540,22 +450,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 }
 
 
-  Widget _buildStep3Content(double screenWidth, double screenHeight) {
-    return Padding(
-      padding: EdgeInsets.only(top: screenWidth*0.05),
-      child: const  Column(
-        
-        children: [
-          
-          CustomInputField(label: "College Name"),
-          CustomDropdownField(label: "Select State"),
-          CustomDropdownField(label: "Select Branch"),
-          CustomDropdownField(label: "Select Course"),
-          CustomInputField(label: "Select Year"),
-        ],
-      ),
-    );
-  }
+  
 
   Widget _buildPasswordScreenPlaceholder(double screenHeight) {
     return Center(
@@ -611,258 +506,8 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
 }
 
-class CustomInputField extends StatelessWidget {
-  final String label;
-
-  const CustomInputField({required this.label, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: screenHeight * 0.018, // Responsive font size
-              color: const Color(0xff626262),
-            ),
-            children:const [
-              TextSpan(
-                text: "*",
-                style: TextStyle(color: Color(0xff0F3CC9)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: screenHeight * 0.01), // Responsive spacing
-        TextField(
-          decoration: InputDecoration(
-            hintText: label,
-            filled: false,
-            fillColor: const Color(0xFFF1F4FF),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0xff0F3CC9)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: Color(0xff0F3CC9),
-                width: 1.5,
-              ),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.03,
-            ),
-          ),
-        ),
-        SizedBox(height: screenHeight * 0.02), // Responsive spacing
-      ],
-    );
-  }
-}
-
-class CustomDropdownField extends StatelessWidget {
-  final String label;
-
-  const CustomDropdownField({required this.label, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: screenHeight * 0.018, // Responsive font size
-              color: Colors.black,
-            ),
-            children:const [
-               TextSpan(
-                text: "*",
-                style: TextStyle(color: Color(0xff0F3CC9)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: screenHeight * 0.01), // Responsive spacing
-        DropdownButtonFormField<String>(
-          items: [
-            DropdownMenuItem(value: "1", child: Text(label)),
-          ],
-          onChanged: (value) {},
-          decoration: InputDecoration(
-            hintText: label,
-            filled: false,
-            fillColor: const Color(0xFFF1F4FF),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                screenHeight*0.01
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0xffB6B6B6)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: Color(0xff0F3CC9),
-                width: 1.5,
-              ),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.03,
-            ),
-          ),
-        ),
-        SizedBox(height: screenHeight * 0.02), // Responsive spacing
-      ],
-    );
-  }
-}
-
-class CustomPasswordField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final bool isPasswordVisible;
-  final VoidCallback onToggleVisibility;
-
-  const CustomPasswordField({
-
-    required this.label,
-    required this.hintText,
-    required this.isPasswordVisible,
-    required this.onToggleVisibility,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: MediaQuery.of(context).size.width * 0.05,
-              color: Colors.black,
-            ),
-            children: [
-              const TextSpan(
-                text: "*",
-                style: TextStyle(color: Color(0xff0F3CC9)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: MediaQuery.of(context).size.width*0.01 ),
-        TextField(
-          obscureText: !isPasswordVisible, // Toggle visibility
-          decoration: InputDecoration(
-            hintText: hintText,
-            suffixIcon: IconButton(
-              icon: Icon(
-                isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                color: Colors.grey,
-              ),
-              onPressed: onToggleVisibility,
-            ),
-            filled: false,
-            fillColor: const Color(0xFFF1F4FF),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                MediaQuery.of(context).size.width*0.01
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                MediaQuery.of(context).size.width*0.01
-              ),
-              borderSide:  BorderSide(
-                color: Color(0xff0F3CC9),
-                width: MediaQuery.of(context).size.width*0.01,
-              ),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 
-            MediaQuery.of(context).size.width * 0.04
-            ),
-          ),
-        ),
-      ],
-    );
-    
-  }
- 
-}
 
 
 
 
 
-class HorizontalStepper extends StatelessWidget {
-  final int currentStep;
-  final Function(int) onStepTap;
-
-  const HorizontalStepper({
-    required this.currentStep,
-    required this.onStepTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(4, (index) {
-        return GestureDetector(
-          onTap: () => onStepTap(index),
-          child: Row(
-            children: [
-              Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 2,
-                    color: const Color(0xff0F3CC9),
-                  ),
-                ),
-                child: CircleAvatar(
-                  backgroundColor:
-                      currentStep >= index ? Colors.white : Colors.white,
-                  child: Icon(
-                    currentStep > index ? Icons.check : Icons.circle,
-                    color: const Color(0xff0F3CC9),
-                    size: 10,
-                  ),
-                ),
-              ),
-              if (index != 3)
-                Container(
-                  width: 30,
-                  height: 2,
-                  color: currentStep > index ? const Color(0xff0F3CC9) : Colors.grey,
-                ),
-            ],
-          ),
-        );
-      }),
-    );
-  }
-}

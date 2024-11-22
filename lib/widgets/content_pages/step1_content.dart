@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pre_dashboard/widgets/custom_text_field.dart';
 import 'package:pre_dashboard/widgets/gender_radio.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 class Step1ContentWidget extends StatelessWidget {
   const Step1ContentWidget({
@@ -141,6 +141,6 @@ class Step1ContentWidget extends StatelessWidget {
          
           ],
         ),
-      ));;
+      ));
   }
 }
