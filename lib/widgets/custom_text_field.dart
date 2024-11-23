@@ -3,9 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/constants.dart';
 
-
-
-
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
@@ -64,7 +61,7 @@ class CustomTextField extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xff0F3CC9),
+                        color: const Color(0xff0F3CC9),
                       ),
                     ),
                   ],
@@ -93,37 +90,14 @@ class CustomTextField extends StatelessWidget {
                   }).toList(),
                   decoration: InputDecoration(
                     hintText: hintText,
-                    hintStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.secondaryTextColor,
-                    ),
                     filled: true,
-                    fillColor: Color(0xffF1F4FF),
+                    fillColor: const Color(0xffFFFFFF),
                     contentPadding: const EdgeInsets.symmetric(
                       vertical: 16,
                       horizontal: 12,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: AppColors.border,
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: AppColors.border,
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Color(0xff0F3CC9),
-                        width: 2,
-                      ),
                     ),
                   ),
                   validator: validator,
@@ -133,60 +107,16 @@ class CustomTextField extends StatelessWidget {
                   obscureText: isPassword,
                   keyboardType: inputType ?? TextInputType.text,
                   readOnly: isDatePicker,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
                   decoration: InputDecoration(
                     hintText: hintText,
-                    hintStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.secondaryTextColor,
-                    ),
-                    prefixIcon: prefixIcon,
-                    suffixIcon: suffixIcon,
                     filled: true,
-                    fillColor: Color(0xffF1F4FF),
+                    fillColor: const Color(0xffFFFFFF),
                     contentPadding: const EdgeInsets.symmetric(
                       vertical: 16,
                       horizontal: 12,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: AppColors.border,
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: AppColors.border,
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Color(0xff0F3CC9),
-                        width: 2,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Color(0xffC1272D),
-                        width: 2,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Color(0xffC1272D),
-                        width: 2,
-                      ),
                     ),
                   ),
                   validator: validator,
