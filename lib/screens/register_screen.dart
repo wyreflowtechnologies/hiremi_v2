@@ -9,8 +9,7 @@ import 'package:pre_dashboard/widgets/content_pages/step2_content.dart';
 import 'package:pre_dashboard/widgets/content_pages/step3_content.dart';
 
 import '../constants/constants.dart';
-import '../widgets/custom_text_field.dart';
-import 'OtpVerificationScreen.dart';
+
 
 class RegisterScreenEducational extends StatefulWidget {
   const RegisterScreenEducational({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   final TextEditingController birthPlaceController = TextEditingController();
 
   String? selectedGender;
-  int currentStep = 0;
+  int currentStep = 1;
 
   List<String> heading = ["Personal Information","Contact Information","Educational Information","Set New Password"];
 
@@ -42,8 +41,8 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   bool isConfirmPasswordVisible = false;
 
 
-   String email = "JohnDoe@gmail.com"; // Default email value
-  String phoneNumber = "+91"; // Default phone number value
+   String email = "JohnDoe@gmail.com";
+  String phoneNumber = "+91"; 
   bool isEmailVerified = false;
   bool showOtpScreen = false;
   String otpInput = "";
@@ -51,26 +50,17 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   bool shouldMove = false;
   final String validOtp = "1234"; 
 
-   // Set the current step (third step in this case)
+   
   final PageController _pageController = PageController();
-  void _verifyEmail() {
-    setState(() {
-      _isEmailVerified = true;
-      if (_isEmailVerified) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
-        );
-      }
-    });
-  }
 
   
 
   @override
   Widget build(BuildContext context) {
+    // bool isActive = true;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -107,19 +97,24 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                   ),
                 SizedBox(height: screenHeight * 0.03),
           
-                // Animated Step Progress Indicator
+                
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center, // Distribute circles evenly
+                  mainAxisAlignment: MainAxisAlignment.center, 
                   children: List.generate(4, (index) {
-                    bool isActive = index < currentStep;
+                 bool  isActive =  index < currentStep;
                     bool isCurrent = index == currentStep;
+                    // print(isActive);
+                    // print('index $index');
+                    // print('current Step $currentStep');
+                    
           
                     return Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // Handle step change on tap
+                            
                             setState(() {
+
                               currentStep = index + 1;
                               _pageController.jumpToPage(currentStep - 1);
                             });
@@ -132,11 +127,11 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: isActive
-                                  ? const Color(0xff002496) // Active steps in blue
+                                  ? const Color(0xff002496) 
                                   : Colors.transparent,
                               border: Border.all(
                                 color: isCurrent
-                                    ? const Color(0xff0F3CC9) // Current step border
+                                    ? const Color(0xff0F3CC9) 
                                     : Colors.grey,
                                 width: 2,
                               ),
@@ -154,7 +149,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                                 height: screenHeight * 0.02,
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color(0xffCBD6FF), // Light blue
+                                  color: Color(0xffCBD6FF), 
                                 ),
                               )
                                   : null,
@@ -163,11 +158,11 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                         ),
                         if (index < 3)
                           Container(
-                            width: screenWidth * 0.15, // Adjust width to span between circles
+                            width: screenWidth * 0.15, 
                             height: screenHeight * 0.003,
                             color: isActive
-                                ? const Color(0xff002496) // Active steps in blue
-                                : Colors.grey, // Inactive steps in grey
+                                ? const Color(0xff002496) 
+                                : Colors.grey, 
                           ),
                       ],
                     );
@@ -182,7 +177,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (pageIndex) {
                       setState(() {
-                        currentStep = pageIndex + 1;
+                        currentStep = pageIndex+1;
                       });
                     },
                     children: [
@@ -229,7 +224,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                 ),
                 SizedBox(height: screenHeight * 0.03),
           
-                // Navigation Buttons
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -260,22 +255,28 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                       onPressed: () {
                         if(currentStep == 2)
                         {
-                          print("yaay");
-                            if(shouldMove){
-                               setState(() {
-                            currentStep++;
+                          print("proceed pressed at 1");
+                            if(shouldMove)
+                            {
+                              setState(() {
+                            // currentStep++;
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
                             );
                           });
                             }
+
+                               
+                            
                         }
-                       else if (currentStep != 2 && currentStep < 4) {
+                       else if ( currentStep < 4) {
                           // Animate and move to the next step
-                          print(currentStep);
+                          // print(currentStep);
+
+                          print("procedd pressed cureent Stepp $currentStep");
                           setState(() {
-                            currentStep++;
+                            // currentStep++;
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
