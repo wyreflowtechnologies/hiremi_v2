@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CustomPasswordField extends StatelessWidget {
@@ -6,13 +5,16 @@ class CustomPasswordField extends StatelessWidget {
   final String hintText;
   final bool isPasswordVisible;
   final VoidCallback onToggleVisibility;
+  final ValueChanged<String> onChanged;
+  final String? errorText;
 
   const CustomPasswordField({
-
     required this.label,
     required this.hintText,
     required this.isPasswordVisible,
     required this.onToggleVisibility,
+    required this.onChanged,
+    this.errorText,
     Key? key,
   }) : super(key: key);
 
@@ -37,11 +39,13 @@ class CustomPasswordField extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.width*0.01 ),
+        SizedBox(height: MediaQuery.of(context).size.width * 0.01),
         TextField(
           obscureText: !isPasswordVisible, // Toggle visibility
+          onChanged: onChanged, // Trigger validation on input change
           decoration: InputDecoration(
             hintText: hintText,
+            errorText: errorText, // Display error message
             suffixIcon: IconButton(
               icon: Icon(
                 isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -53,27 +57,21 @@ class CustomPasswordField extends StatelessWidget {
             fillColor: const Color(0xFFF1F4FF),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                MediaQuery.of(context).size.width*0.01
-              ),
+                  MediaQuery.of(context).size.width * 0.01),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                MediaQuery.of(context).size.width*0.01
-              ),
-              borderSide:  BorderSide(
+                  MediaQuery.of(context).size.width * 0.01),
+              borderSide: BorderSide(
                 color: Color(0xff0F3CC9),
-                width: MediaQuery.of(context).size.width*0.01,
+                width: MediaQuery.of(context).size.width * 0.01,
               ),
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 
-            MediaQuery.of(context).size.width * 0.04
-            ),
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.04),
           ),
         ),
       ],
     );
-    
   }
- 
 }
-

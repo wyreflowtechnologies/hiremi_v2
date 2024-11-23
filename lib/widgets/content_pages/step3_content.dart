@@ -8,18 +8,20 @@ class Step3Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(top: screenWidth*0.05),
-      child: const  Column(
-        
-        children: [
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(top: screenWidth*0.05),
+        child: const  Column(
           
-          CustomInputField(label: "College Name"),
-          CustomDropdownField(label: "Select State"),
-          CustomDropdownField(label: "Select Branch"),
-          CustomDropdownField(label: "Select Course"),
-          CustomInputField(label: "Select Year"),
-        ],
+          children: [
+            
+            CustomInputField(label: "College Name"),
+            CustomDropdownField(label: "Select State"),
+            CustomDropdownField(label: "Select Branch"),
+            CustomDropdownField(label: "Select Course"),
+            CustomInputField(label: "Select Year"),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pre_dashboard/screens/LoginScreen.dart';
@@ -7,7 +6,6 @@ import 'package:pre_dashboard/widgets/custom_password_field.dart';
 import 'package:pre_dashboard/widgets/content_pages/step1_content.dart';
 import 'package:pre_dashboard/widgets/content_pages/step2_content.dart';
 import 'package:pre_dashboard/widgets/content_pages/step3_content.dart';
-
 import '../constants/constants.dart';
 
 
@@ -20,11 +18,19 @@ class RegisterScreenEducational extends StatefulWidget {
 
 class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
-//Zaidi's 
+//Zaidi's
+
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController fatherNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController birthPlaceController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  String? password;
+  String? passwordError;
+  String? confirmPasswordError;
+
 
   String? selectedGender;
   int currentStep = 1;
@@ -39,6 +45,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   bool _verifyOTP = false;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+
 
 
    String email = "JohnDoe@gmail.com";
@@ -266,9 +273,14 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             );
                           });
                             }
-
-                               
-                            
+                        }
+                        else if(currentStep == 4){
+                          if(passwordController.text==  confirmPasswordController.text){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>  LoginScreenUpdated()));
+                          }
+                          else{
+                            print('Password dont match');
+                          }
                         }
                        else if ( currentStep < 4) {
                           // Animate and move to the next step
@@ -283,6 +295,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             );
                           });
                         }
+
                         else{
                           Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginScreenUpdated()));
                         }
@@ -486,60 +499,90 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   );
 }
 
-
-  
-
   Widget _buildPasswordScreenPlaceholder(double screenHeight) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: screenHeight*0.05),
-           Padding(
-            padding: EdgeInsets.only(left: screenHeight*0.001),
-            child: Text.rich(
-              TextSpan(
-                text: "Min 8 characters",
-                style: TextStyle(fontSize: screenHeight*0.02, color: Color(0xFF0F3CC9)),
-                children: [
-                  TextSpan(
-                    text: ", 1 uppercase, 1 digit, 1 special character",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: screenHeight * 0.05),
+            Padding(
+              padding: EdgeInsets.only(left: screenHeight * 0.001),
+              child: Text.rich(
+                TextSpan(
+                  text: "Min 8 characters",
+                  style: TextStyle(
+                      fontSize: screenHeight * 0.02, color: Color(0xFF0F3CC9)),
+                  children: [
+                    TextSpan(
+                      text: ", 1 uppercase, 1 digit, 1 special character",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: screenHeight*0.02),
-          // Password Field
-          CustomPasswordField(
-
-            label: "Password",
-            hintText: "****",
-            isPasswordVisible: isPasswordVisible,
-            onToggleVisibility: () {
-              setState(() {
-                isPasswordVisible = !isPasswordVisible;
-              });
-            },
-          ),
-            SizedBox(height: screenHeight*0.02),
-          // Confirm Password Field
-          CustomPasswordField(
-            label: "Confirm Password",
-            hintText: "****",
-            isPasswordVisible: isConfirmPasswordVisible,
-            onToggleVisibility: () {
-              setState(() {
-                isConfirmPasswordVisible = !isConfirmPasswordVisible;
-              });
-            },
-          ),
-        ],
+            SizedBox(height: screenHeight * 0.02),
+            // Password Field
+            CustomPasswordField(
+              label: "Password",
+              hintText: "****",
+              isPasswordVisible: isPasswordVisible,
+              onToggleVisibility: () {
+                setState(() {
+                  isPasswordVisible = !isPasswordVisible;
+                });
+              },
+              onChanged: (value) {
+                setState(() {
+                  password = value; // Store the password value
+                  passwordError = _validatePassword(value);
+                });
+              },
+              errorText: passwordError,
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            // Confirm Password Field
+            CustomPasswordField(
+              label: "Confirm Password",
+              hintText: "****",
+              isPasswordVisible: isConfirmPasswordVisible,
+              onToggleVisibility: () {
+                setState(() {
+                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                });
+              },
+              onChanged: (value) {
+                setState(() {
+                  confirmPasswordError =
+                  value == password ? null : "Passwords do not match";
+                });
+              },
+              errorText: confirmPasswordError,
+            ),
+          ],
+        ),
       ),
     );
-    
   }
-  
+
+// Validation Method
+  String? _validatePassword(String password) {
+    if (password.length < 8) {
+      return "Password must be at least 8 characters long";
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return "Password must include at least 1 uppercase letter";
+    }
+    if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return "Password must include at least 1 digit";
+    }
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password)) {
+      return "Password must include at least 1 special character";
+    }
+    return null;
+  }
+
+
 
 }
 
