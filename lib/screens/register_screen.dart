@@ -74,7 +74,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      appBar: showOtpScreen?null: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -323,62 +323,75 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
   
   Widget _buildOtpOverlay(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
   return GestureDetector(
-    onTap: () => FocusScope.of(context).unfocus(), // Dismiss keyboard
+    onTap: () => FocusScope.of(context).unfocus(), 
     child: BackdropFilter(
        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
       child: SingleChildScrollView(
         child: Container(
           // height: double.infinity,
-          color: Colors.white.withOpacity(0.35), // Translucent background
+          color: Colors.white.withOpacity(0.90), // Translucent background
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+              padding:  EdgeInsets.symmetric(
+                horizontal: screenWidth*0.05, 
+                vertical:  screenWidth*0.02,
+                ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // Image at the top
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.2,
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.width*0.5,
                     child: Image.asset(
-                      'assets/images/logo (2).png', // Replace with your asset image
-                      height: 100,
+                      'assets/images/logo (2).png', 
+                      height: screenWidth * 0.1,
                       fit: BoxFit.contain,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 
+                  MediaQuery.of(context).size.width * 0.01
+                  ),
             
                   // OTP Title
-                  const Text(
+                  Text(
                     "OTP Verification",
-                    style: TextStyle(
-                      fontSize: 20,
+                    style: GoogleFonts.poppins(
+                      fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.bold,
+                      // fontFamily: "Poppins"
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: screenWidth*0.01),
             
                   // Subtitle
-                  const Text(
+                   Text(
                     "Enter the verification code we have sent to your e-mail",
-                    style: TextStyle(
-                      fontSize: 14,
+                    style: GoogleFonts.poppins(
+                      fontSize: screenWidth*0.035,
                       color: Colors.grey,
+                     
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                   SizedBox(height: screenWidth*0.04),
             
                   // OTP Input Fields
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth*0.035,
+                      ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(
                         4, // Number of OTP fields
                         (index) => SizedBox(
-                          width: 60,
+                          width: screenWidth*0.15,
                           child: TextField(
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
@@ -391,18 +404,37 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                               }
                               otpInput = otpInput.replaceRange(0,0,value);
                             },
-                            decoration: const InputDecoration(
-                              counterText: "", // Hides the character count
+                            decoration: InputDecoration(
+                              counterText: "", 
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(16)),
+                                borderRadius: BorderRadius.all(Radius.circular(screenWidth*0.04)),
+                               
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(screenWidth*0.04)),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: screenWidth*0.0035
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(screenWidth*0.04)),
+                                borderSide: BorderSide(
+                                  color: AppColors.primaryColor,
+                                  width: screenWidth*0.0035
+                                ),
+                              ),
+                              
+                              
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 
+                  screenWidth * 0.2
+                  ),
             
                   // Verify OTP Button
                   ElevatedButton(
@@ -426,17 +458,21 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
+                      minimumSize:  Size(double.infinity, screenWidth * 0.15),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(
+                          screenWidth * 0.05
+                        ),
                       ),
                       backgroundColor: AppColors.primaryColor,
                     ),
-                    child: const Text(
+                    child: Text(
                       "Verify OTP",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: AppColors.white,
-                        fontSize: 16),
+                        fontWeight: FontWeight.w700,
+                        fontSize: screenWidth * 0.04,
+                        ),
                     ),
                   ),
                 ],

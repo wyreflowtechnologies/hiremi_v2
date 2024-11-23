@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/splashscreen3.dart';
+import 'splashscreen3.dart';
 
 class NextScreen extends StatefulWidget {
   @override

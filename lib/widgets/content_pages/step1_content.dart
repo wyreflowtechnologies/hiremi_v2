@@ -34,6 +34,7 @@ class Step1ContentWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             SizedBox(height: screenHeight*0.03),
            
             CustomTextField(
