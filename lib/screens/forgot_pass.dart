@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pre_dashboard/screens/LoginScreen.dart';
 import '../constants/constants.dart';
 
 import '../widgets/background.dart';
@@ -175,7 +176,9 @@ class _ForgotPassState extends State<ForgotPass> {
                     ),
                   ),
                 ),
-                ResetButton(onPressed: (){}),
+                ResetButton(onPressed: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=> LoginScreenUpdated()));
+                }),
               ],
             ),
           ),
