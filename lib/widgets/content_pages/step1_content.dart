@@ -103,27 +103,29 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.002),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GenderRadio(
-                      gender: 'Male',
-                      selectedGender: widget.selectedGender,
-                      onChanged: widget.onGenderChanged,
-                    ),
-                    SizedBox(width: screenHeight * 0.01),
-                    GenderRadio(
-                      gender: 'Female',
-                      selectedGender: widget.selectedGender,
-                      onChanged: widget.onGenderChanged,
-                    ),
-                    SizedBox(width: screenHeight * 0.01),
-                    GenderRadio(
-                      gender: 'Other',
-                      selectedGender: widget.selectedGender,
-                      onChanged: widget.onGenderChanged,
-                    ),
-                  ],
+                SingleChildScrollView(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GenderRadio(
+                        gender: 'Male',
+                        selectedGender: widget.selectedGender,
+                        onChanged: widget.onGenderChanged,
+                      ),
+                      SizedBox(width: screenHeight * 0.01),
+                      GenderRadio(
+                        gender: 'Female',
+                        selectedGender: widget.selectedGender,
+                        onChanged: widget.onGenderChanged,
+                      ),
+                      SizedBox(width: screenHeight * 0.01),
+                      GenderRadio(
+                        gender: 'Other',
+                        selectedGender: widget.selectedGender,
+                        onChanged: widget.onGenderChanged,
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
