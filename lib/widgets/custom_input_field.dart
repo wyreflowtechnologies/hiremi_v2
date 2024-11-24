@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class CustomInputField extends StatelessWidget {
   final String label;
 
-  const CustomInputField({required this.label, Key? key}) : super(key: key);
+  const CustomInputField({required this.label,
+  required this.validator,
+   Key? key}) : super(key: key);
+
+   final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class CustomInputField extends StatelessWidget {
           ),
         ),
         SizedBox(height: screenHeight * 0.01), // Responsive spacing
-        TextField(
+        TextFormField(
           decoration: InputDecoration(
             hintText: label,
             filled: false,
@@ -52,6 +56,7 @@ class CustomInputField extends StatelessWidget {
               horizontal: MediaQuery.of(context).size.width * 0.03,
             ),
           ),
+          validator: validator,
         ),
         SizedBox(height: screenHeight * 0.02), // Responsive spacing
       ],

@@ -20,6 +20,8 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
 //Zaidi's
 
+  
+
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController fatherNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -57,9 +59,18 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   bool shouldMove = false;
   final String validOtp = "1234"; 
 
+  List<GlobalKey<FormState>> stepKeys = [
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>(),
+];
+
+  bool isValidated = false;
+
    
   final PageController _pageController = PageController();
-
+  final GlobalKey<FormState> step1Key = GlobalKey<FormState>();
   
 
   @override
@@ -189,6 +200,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     },
                     children: [
                       Step1ContentWidget(
+                        formKey: stepKeys[0],
                         fullNameController: fullNameController,
                         fatherNameController: fatherNameController, 
                         birthPlaceController: birthPlaceController, 
@@ -200,17 +212,21 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             selectedGender = value;
                             print(selectedGender);
                               });
-                        }),
+                        },
+                        isValidated: isValidated,
+                        onValidation: (bool isValid){
+                            setState(() {
+                              isValidated = isValid;
+                            });
+                        },
+                        ),
                         Step2Content(
+                          formKey: stepKeys[1],
                           email: email, 
                           isEmailVerified: isEmailVerified, 
                           phoneNumber: phoneNumber, 
                           showOtpScreen: showOtpScreen,
-                          onChangedEmail: (value){
-                            setState(() {
-                              email = value;                              
-                            });
-                          },
+                          
                           onChangedPhone: (value){
                             setState(() {
                               phoneNumber = value;
@@ -223,9 +239,11 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                           },
                           ),
                       
-                     const Step3Content(),
+                     Step3Content(
+                      formKey: stepKeys[2],
+                     ),
                       _buildPasswordScreenPlaceholder(screenHeight),
-                      // Placeholder for PasswordScreen
+                     
                     ],
                   ),
                 ),
@@ -260,41 +278,55 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if(currentStep == 2)
+                        if(currentStep<4)
                         {
                           print("proceed pressed at 1");
-                            if(shouldMove)
-                            {
-                              setState(() {
+                            // if(shouldMoveSteps[currentStep-1])
+                            // {
+                            
+                            if (stepKeys[currentStep-1].currentState?.validate() ?? false) {
+                             
+                               setState(() {
                             // currentStep++;
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
                             );
                           });
-                            }
+    } else {
+      print('Please fill out all required fields.');
+    }
+                            
+                             
+                            // }
                         }
                         else if(currentStep == 4){
-                          if(passwordController.text==  confirmPasswordController.text){
+                          if(stepKeys[currentStep-1].currentState?.validate() ?? false){
                             Navigator.push(context, MaterialPageRoute(builder: (_)=>  LoginScreenUpdated()));
                           }
                           else{
-                            print('Password dont match');
+                             ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please try again'),
+          duration: Duration(seconds: 2),
+          backgroundColor: AppColors.primaryColor,
+        ),
+      );
                           }
                         }
-                       else if ( currentStep < 4) {
-                          // Animate and move to the next step
-                          // print(currentStep);
+                      //  else if ( currentStep < 4) {
+                      //     // Animate and move to the next step
+                      //     // print(currentStep);
 
-                          print("procedd pressed cureent Stepp $currentStep");
-                          setState(() {
-                            // currentStep++;
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                            );
-                          });
-                        }
+                      //     print("procedd pressed cureent Stepp $currentStep");
+                      //     setState(() {
+                      //       // currentStep++;
+                      //       _pageController.nextPage(
+                      //         duration: const Duration(milliseconds: 500),
+                      //         curve: Curves.easeInOut,
+                      //       );
+                      //     });
+                      //   }
 
                         else{
                           Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginScreenUpdated()));
@@ -469,6 +501,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             backgroundColor: AppColors.primaryColor,
                           ),
                         );
+                       
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -502,82 +535,87 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   Widget _buildPasswordScreenPlaceholder(double screenHeight) {
     return SingleChildScrollView(
       child: Center(
-        child: Column(
-          children: [
-            SizedBox(height: screenHeight * 0.05),
-            Padding(
-              padding: EdgeInsets.only(left: screenHeight * 0.001),
-              child: Text.rich(
-                TextSpan(
-                  text: "Min 8 characters",
-                  style: TextStyle(
-                      fontSize: screenHeight * 0.02, color: Color(0xFF0F3CC9)),
-                  children: [
-                    TextSpan(
-                      text: ", 1 uppercase, 1 digit, 1 special character",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
+        child: Form(
+          key: stepKeys[3],
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.05),
+              Padding(
+                padding: EdgeInsets.only(left: screenHeight * 0.001),
+                child: Text.rich(
+                  TextSpan(
+                    text: "Min 8 characters",
+                    style: TextStyle(
+                        fontSize: screenHeight * 0.02, color: Color(0xFF0F3CC9)),
+                    children: const [
+                      TextSpan(
+                        text: ", 1 uppercase, 1 digit, 1 special character",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.02),
-            // Password Field
-            CustomPasswordField(
-              label: "Password",
-              hintText: "****",
-              isPasswordVisible: isPasswordVisible,
-              onToggleVisibility: () {
-                setState(() {
-                  isPasswordVisible = !isPasswordVisible;
-                });
+              SizedBox(height: screenHeight * 0.02),
+              // Password Field
+              CustomPasswordField(
+                label: "Password",
+                hintText: "****",
+                isPasswordVisible: isPasswordVisible,
+                onToggleVisibility: () {
+                  setState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                onChanged: (value) {
+                  setState(() {
+                    password = value; // Store the password value
+                    passwordError = _validatePassword(value);
+                  });
+                },
+                errorText: passwordError,
+                validator: _validatePassword,
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              // Confirm Password Field
+              CustomPasswordField(
+                label: "Confirm Password",
+                hintText: "****",
+                isPasswordVisible: isConfirmPasswordVisible,
+                onToggleVisibility: () {
+                  setState(() {
+                    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                  });
+                },
+                onChanged: (value) {
+                  setState(() {
+                    confirmPasswordError =
+                    value == password ? null : "Passwords do not match";
+                  });
+                },
+                errorText: confirmPasswordError,
+                 validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Confirm password is required";
+                }
+                if (value != password) {
+                  return "Passwords do not match";
+                }
+                return null;
               },
-              onChanged: (value) {
-                setState(() {
-                  password = value; // Store the password value
-                  passwordError = _validatePassword(value);
-                });
-              },
-              errorText: passwordError,
-            ),
-            SizedBox(height: screenHeight * 0.02),
-            // Confirm Password Field
-            CustomPasswordField(
-              label: "Confirm Password",
-              hintText: "****",
-              isPasswordVisible: isConfirmPasswordVisible,
-              onToggleVisibility: () {
-                setState(() {
-                  isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                });
-              },
-              onChanged: (value) {
-                setState(() {
-                  confirmPasswordError =
-                  value == password ? null : "Passwords do not match";
-                });
-              },
-              errorText: confirmPasswordError,
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
 // Validation Method
-  String? _validatePassword(String password) {
-    if (password.length < 8) {
-      return "Password must be at least 8 characters long";
-    }
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+  String? _validatePassword(String? password) {
+   
+    if (!RegExp(r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$').hasMatch(password!)) {
       return "Password must include at least 1 uppercase letter";
-    }
-    if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return "Password must include at least 1 digit";
-    }
-    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password)) {
-      return "Password must include at least 1 special character";
     }
     return null;
   }

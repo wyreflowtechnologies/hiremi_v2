@@ -6,29 +6,41 @@ import 'package:pre_dashboard/widgets/gender_radio.dart';
 import '../../constants/constants.dart';
 
 class Step1ContentWidget extends StatefulWidget {
-  const Step1ContentWidget({
+   Step1ContentWidget({
     super.key,
+    required this.formKey,
     required this.fullNameController,
     required this.fatherNameController,
     required this.birthPlaceController,
     required this.dobController,
     required this.onGenderChanged,
     this.selectedGender,
+    required this.isValidated,
+    required this.onValidation,
+    
   });
 
+  final GlobalKey<FormState> formKey;
   final TextEditingController fullNameController;
   final TextEditingController fatherNameController;
   final TextEditingController dobController;
   final TextEditingController birthPlaceController;
   final ValueChanged<String?> onGenderChanged;
   final String? selectedGender;
+  final bool isValidated;
+  final Function(bool) onValidation;
+   
+
+   
 
   @override
   State<Step1ContentWidget> createState() => _Step1ContentWidgetState();
 }
 
 class _Step1ContentWidgetState extends State<Step1ContentWidget> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,7 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
-            key: _formKey, // Attach the form key here
+            key: widget.formKey, // Attach the form key here
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -79,14 +91,14 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                           color: Colors.black,
                         ),
                       ),
-                      TextSpan(
-                        text: '*',
-                        style: GoogleFonts.poppins(
-                          fontSize: screenHeight * 0.02,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff0F3CC9),
-                        ),
-                      ),
+                      // TextSpan(
+                      //   text: '*',
+                      //   style: GoogleFonts.poppins(
+                      //     fontSize: screenHeight * 0.02,
+                      //     fontWeight: FontWeight.w500,
+                      //     color: const Color(0xff0F3CC9),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -164,30 +176,7 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                     return null;
                   },
                 ),
-                SizedBox(height: screenHeight * 0.02),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Form is valid
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('All fields are valid!'),
-                          ),
-                        );
-                      } else {
-                        // Form is invalid
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'Please fill in all required fields before proceeding.'),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('Submit'),
-                  ),
-                ),
+               
               ],
             ),
           ),

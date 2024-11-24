@@ -25,7 +25,7 @@ class GenderRadio extends StatelessWidget {
           border: Border.all(
             color: AppColors.textField,
           ),
-          color: const Color(0xffF1F4FF),
+          color: Colors.white,
         ),
         child: Row(
           children: [
@@ -33,6 +33,10 @@ class GenderRadio extends StatelessWidget {
               value: gender,
               groupValue: selectedGender,
               onChanged: onChanged,
+              overlayColor: WidgetStatePropertyAll(
+                Colors.white
+              ),
+              
               activeColor: const Color(0xff0F3CC9),
             ),
             Text(

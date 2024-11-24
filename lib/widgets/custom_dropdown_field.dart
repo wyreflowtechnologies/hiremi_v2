@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class CustomDropdownField extends StatelessWidget {
   final String label;
 
-  const CustomDropdownField({required this.label, Key? key}) : super(key: key);
+  CustomDropdownField({required this.label, 
+  required this.validator,
+  Key? key}) : super(key: key);
+
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +63,7 @@ class CustomDropdownField extends StatelessWidget {
               horizontal: MediaQuery.of(context).size.width * 0.03,
             ),
           ),
+          validator: validator,
         ),
         SizedBox(height: screenHeight * 0.02), // Responsive spacing
       ],
