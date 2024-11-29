@@ -126,13 +126,14 @@ _pageController.animateToPage(
               ),
             ),
             CustomSlideIndicator(pageController: _pageController),
-            CustomSwipedButton(isDragged: isDragged, 
-            onSwipeStart: (){
-                setState(() {
-                      isDragged = true;
-                      // trackColor = Colors.blue;
-                    });
-            }, 
+            CustomSwipedButton(
+            //   isDragged: isDragged, 
+            // onSwipeStart: (){
+            //     setState(() {
+            //           isDragged = true;
+            //           // trackColor = Colors.blue;
+            //         });
+            // }, 
               onSwipeEnd: () {
                     setState(() {
                       isDragged = false;

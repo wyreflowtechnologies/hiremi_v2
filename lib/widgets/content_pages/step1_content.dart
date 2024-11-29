@@ -62,7 +62,7 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                   labelText: "Full Name",
                   hintText: 'John Doe',
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.length < 3 || value.isEmpty) {
                       return 'Please enter your full name';
                     }
                     return null;
@@ -73,7 +73,7 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                   labelText: "Father’s Full Name",
                   hintText: 'Father Name',
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value!.length < 3 || value.isEmpty) {
                       return 'Please enter your father\'s full name';
                     }
                     return null;
@@ -91,42 +91,19 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                           color: Colors.black,
                         ),
                       ),
-                      // TextSpan(
-                      //   text: '*',
-                      //   style: GoogleFonts.poppins(
-                      //     fontSize: screenHeight * 0.02,
-                      //     fontWeight: FontWeight.w500,
-                      //     color: const Color(0xff0F3CC9),
-                      //   ),
-                      // ),
+                      TextSpan(
+                        text: '*',
+                        style: GoogleFonts.poppins(
+                          fontSize: screenHeight * 0.02,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff0F3CC9),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.002),
-                SingleChildScrollView(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GenderRadio(
-                        gender: 'Male',
-                        selectedGender: widget.selectedGender,
-                        onChanged: widget.onGenderChanged,
-                      ),
-                      SizedBox(width: screenHeight * 0.01),
-                      GenderRadio(
-                        gender: 'Female',
-                        selectedGender: widget.selectedGender,
-                        onChanged: widget.onGenderChanged,
-                      ),
-                      SizedBox(width: screenHeight * 0.01),
-                      GenderRadio(
-                        gender: 'Other',
-                        selectedGender: widget.selectedGender,
-                        onChanged: widget.onGenderChanged,
-                      ),
-                    ],
-                  ),
-                ),
+                GenderInput(widget: widget, screenHeight: screenHeight),
                 SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
                   controller: widget.dobController,
@@ -160,13 +137,43 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
                   labelText: 'State',
                   isDropdown: true,
                   dropdownItems: const [
-                    'Uttar Pradesh',
-                    'Maharashtra',
-                    'Delhi',
-                    'Karnataka',
-                    'Tamil Nadu',
-                    'Gujarat',
-                    'Rajasthan',
+                    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Chandigarh',
+    'Delhi',
+    'Jammu and Kashmir',
+    'Ladakh',
+    'Lakshadweep',
+    'Puducherry',
+    'Andaman and Nicobar Islands',
+    'Dadra and Nagar Haveli',
+    'Daman and Diu',
                   ],
                   onDropdownChanged: (value) {
                     print('Selected State: $value');
@@ -185,5 +192,100 @@ class _Step1ContentWidgetState extends State<Step1ContentWidget> {
         ),
       ),
     );
+  }
+}
+
+class GenderInput extends StatefulWidget {
+  const GenderInput({
+    super.key,
+    required this.widget,
+    required this.screenHeight,
+  });
+
+
+  
+  final Step1ContentWidget widget;
+  final double screenHeight;
+
+  @override
+  State<GenderInput> createState() => _GenderInputState();
+}
+
+class _GenderInputState extends State<GenderInput> {
+
+  final List<bool> selectionState = [false,false,false];
+  String? validateGender(String? gender) {
+    if (gender == null || gender.isEmpty) {
+      return 'Please select a gender.';
+    }
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FormField<String>(
+      initialValue: widget.widget.selectedGender,
+      validator: validateGender,
+      builder: (field) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GenderRadio(
+                  gender: 'Male',
+                  selectedGender: field.value,
+                  onChanged: (value){
+                    _updateSelection(0);
+                    field.didChange(value);
+                    widget.widget.onGenderChanged(value);
+                  },
+                  isSelected: selectionState[0],
+                ),
+                SizedBox(width: widget.screenHeight * 0.01),
+                GenderRadio(
+                  gender: 'Female',
+                  selectedGender: field.value,
+                  onChanged: (value){
+                    _updateSelection(1);
+                    field.didChange(value);
+                    widget.widget.onGenderChanged(value);
+                  },
+                  isSelected: selectionState[1],
+                ),
+                SizedBox(width: widget.screenHeight * 0.01),
+                GenderRadio(
+                  gender: 'Other',
+                   selectedGender: field.value,
+                  onChanged: (value){
+                    _updateSelection(2);
+                    field.didChange(value);
+                    widget.widget.onGenderChanged(value);
+                    
+                  },
+                  isSelected:  selectionState[2],
+                ),
+              ],
+            ),
+             if (field.hasError)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  field.errorText!,
+                  style: TextStyle(color: Colors.red[900], fontSize: widget.screenHeight*0.0125),
+                ),
+              ),
+          ],
+        );
+      }
+    );
+  }
+   void _updateSelection(int selectedIndex) {
+    for (int i = 0; i < selectionState.length; i++) {
+      setState(() {
+        selectionState[i] = (i == selectedIndex);
+      });
+       // Set only the tapped index to true
+    }
   }
 }

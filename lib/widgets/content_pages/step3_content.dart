@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pre_dashboard/widgets/custom_dropdown_field.dart';
 import 'package:pre_dashboard/widgets/custom_input_field.dart';
 
+import '../../constants/constants.dart';
+
 class Step3Content extends StatelessWidget {
   const Step3Content({super.key,
   required this.formKey
@@ -30,7 +32,9 @@ class Step3Content extends StatelessWidget {
                 return null;
               },
               ),
-              CustomDropdownField(label: "Select State",
+              CustomDropdownField(
+                items: AppColors.statesAndUTs,
+                label: "Select State",
               validator: (value) {
                 if(value == null || value.isEmpty)
                 {
@@ -40,7 +44,9 @@ class Step3Content extends StatelessWidget {
                 return null;
               },
               ),
-              CustomDropdownField(label: "Select Branch",
+              CustomDropdownField(
+                items: AppColors.branches,
+                label: "Select Branch",
                validator: (value) {
                 if(value == null || value.isEmpty)
                 {
@@ -50,7 +56,9 @@ class Step3Content extends StatelessWidget {
                 return null;
               },
               ),
-              CustomDropdownField(label: "Select Course",
+              CustomDropdownField(
+                items: AppColors.courses,
+                label: "Select Course",
                validator: (value) {
                 if(value == null || value.isEmpty)
                 {
@@ -61,6 +69,7 @@ class Step3Content extends StatelessWidget {
               },
               ),
               CustomInputField(label: "Select Year",
+                keyboardType: TextInputType.numberWithOptions(),
                 validator: (value) {
                 if(value == null || value.isEmpty)
                 {

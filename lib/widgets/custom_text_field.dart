@@ -38,20 +38,22 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.width * 0.02,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (labelText != null)
             Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
+              padding:  EdgeInsets.only(bottom: 
+               MediaQuery.of(context).size.width * 0.02,
+              ),
               child: RichText(
                 text: TextSpan(
                   children: [
                     TextSpan(
                       text: labelText!,
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
@@ -59,7 +61,7 @@ class CustomTextField extends StatelessWidget {
                     TextSpan(
                       text: '*',
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize:  MediaQuery.of(context).size.width * 0.04,
                         fontWeight: FontWeight.w500,
                         color: const Color(0xff0F3CC9),
                       ),
@@ -78,26 +80,38 @@ class CustomTextField extends StatelessWidget {
                   items: dropdownItems?.map((item) {
                     return DropdownMenuItem<String>(
                       value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Text(
+                          item,
+                          style:  GoogleFonts.poppins(
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     );
                   }).toList(),
                   decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    isDense: true,
+                    hintStyle: TextStyle(
+                      
+                    ),
                     hintText: hintText,
                     filled: true,
                     fillColor: const Color(0xffFFFFFF),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 12,
+                    contentPadding:  EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width * 0.04,
+                      horizontal:  MediaQuery.of(context).size.width * 0.04,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      // gapPadding: 43.0,
+                      borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.width * 0.02
+                      ),
                     ),
                   ),
                   validator: validator,
@@ -111,12 +125,14 @@ class CustomTextField extends StatelessWidget {
                     hintText: hintText,
                     filled: true,
                     fillColor: const Color(0xffFFFFFF),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 12,
+                    contentPadding:  EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width * 0.04,
+                      horizontal:  MediaQuery.of(context).size.width * 0.04,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(
+                         MediaQuery.of(context).size.width * 0.02,
+                      ),
                     ),
                   ),
                   validator: validator,

@@ -117,6 +117,98 @@ static const Color textFieldFillColor = Color(0xFFF1F4FF);
   static const Color resetBtn = Color(0xFF003DD1);
   // static const Color background =Color(0xFFF5F5F5);
 
+    static const LinearGradient swipeGradient = LinearGradient(colors: [
+ Color(0xFF3B62F0),
+  Color(0xFF5377F3),
+   Color(0xFF234CE6),
+    Color(0xFF1F45D0),
+    Color(0xFF1A3CB8),
+    Color(0xFF132A80),
+    Color(0xFF0F246E),
+    Color(0xFF0C1E5E),
+
+  ]);
+
+   static const List<String> statesAndUTs = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Chandigarh',
+    'Delhi',
+    'Jammu and Kashmir',
+    'Ladakh',
+    'Lakshadweep',
+    'Puducherry',
+    'Andaman and Nicobar Islands',
+    'Dadra and Nagar Haveli',
+    'Daman and Diu',
+      ];
+
+
+  static const List<String> courses = [
+    'Aerospace Engineering',
+                          'Automotive Engineering',
+                          'Chemical Engineering',
+                          'Civil Engineering',
+                          'Computer Science and Engineering',
+                          'Electrical Engineering',
+                          'Electronics and Communication Engineering',
+                          'Finance',
+                          'Human Resources',
+                          'Industrial Engineering',
+                          'Information Technology',
+                          'Marine Engineering',
+                          'Marketing',
+                          'Materials Engineering',
+                          'Mechanical Engineering',
+                          'Metallurgical Engineering',
+                          'Nuclear Engineering',
+                          'Robotics Engineering',
+                          'Sales',
+                          'Other',
+  ];
+
+  static const List<String> branches = [
+    'B.Com',
+                          'B.Sc',
+                          'BE',
+                          'B.Tech',
+                          'BBA',
+                          'BCA',
+                          'Diploma',
+                          'M.Com',
+                          'M.Sc',
+                          'M.Tech',
+                          'MBA',
+                          'MCA',
+                          'Other',
+  ];
+
 }
 
 

@@ -80,287 +80,334 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
     final screenHeight = MediaQuery.of(context).size.height;
     
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: showOtpScreen?null: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title:Text(
-                'Create Account',
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff0f3cc9),
-                ),
-              ),
-      ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.05,
-              vertical: screenHeight * 0.02,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  
-                  currentStep>1? heading[currentStep-1]: heading[currentStep],
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                SizedBox(height: screenHeight * 0.03),
-          
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, 
-                  children: List.generate(4, (index) {
-                 bool  isActive =  index < currentStep;
-                    bool isCurrent = index == currentStep;
-                    // print(isActive);
-                    // print('index $index');
-                    // print('current Step $currentStep');
-                    
-          
-                    return Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            
-                            setState(() {
+    return PopScope(
 
-                              currentStep = index + 1;
-                              _pageController.jumpToPage(currentStep - 1);
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                            width: screenHeight * 0.04,
-                            height: screenHeight * 0.04,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isActive
-                                  ? const Color(0xff002496) 
-                                  : Colors.transparent,
-                              border: Border.all(
-                                color: isCurrent
-                                    ? const Color(0xff0F3CC9) 
-                                    : Colors.grey,
-                                width: 2,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: showOtpScreen?null: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title:Text(
+                  'Create Account',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff0f3cc9),
+                  ),
+                ),
+        ),
+        body: Stack(
+          children: [
+            PopScope(
+              canPop: false,
+               onPopInvokedWithResult: (didPop, result) {
+             if(didPop) return;
+              if(_pageController.hasClients && _pageController.page == 0.0)
+              {
+                Navigator.pop(context);
+              }
+              else
+              {
+                  setState(() {
+               _pageController.previousPage(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeInOut,
+                              );
+             });
+              }
+
+           },
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05,
+                  vertical: screenHeight * 0.02,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      
+                      currentStep>1? heading[currentStep-1]: heading[currentStep],
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    SizedBox(height: screenHeight * 0.03),
+              
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center, 
+                      children: List.generate(4, (index) {
+                     bool  isActive =  index < currentStep;
+                        bool isCurrent = index == currentStep;
+                        // print(isActive);
+                        // print('index $index');
+                        // print('current Step $currentStep');
+                        
+              
+                        return Row(
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              width: screenHeight * 0.04,
+                              height: screenHeight * 0.04,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: isActive
+                                    ? const Color(0xff002496) 
+                                    : Colors.transparent,
+                                border: Border.all(
+                                  color: isCurrent
+                                      ? const Color(0xff0F3CC9) 
+                                      : Colors.grey,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: isActive
+                                    ? Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: screenHeight * 0.02,
+                                )
+                                    : isCurrent
+                                    ? Container(
+                                  width: screenHeight * 0.02,
+                                  height: screenHeight * 0.02,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffCBD6FF), 
+                                  ),
+                                )
+                                    : null,
                               ),
                             ),
-                            child: Center(
-                              child: isActive
-                                  ? Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: screenHeight * 0.02,
-                              )
-                                  : isCurrent
-                                  ? Container(
-                                width: screenHeight * 0.02,
-                                height: screenHeight * 0.02,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xffCBD6FF), 
-                                ),
-                              )
-                                  : null,
+                            if (index < 3)
+                              Container(
+                                width: screenWidth * 0.15, 
+                                height: screenHeight * 0.003,
+                                color: isActive
+                                    ? const Color(0xff002496) 
+                                    : Colors.grey, 
+                              ),
+                          ],
+                        );
+                      }),
+                    ),
+                    SizedBox(height: screenWidth * 0.003),
+              
+                    // PageView for dynamic content
+                    Expanded(
+                      child: PageView(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        onPageChanged: (pageIndex) {
+                          setState(() {
+                            currentStep = pageIndex+1;
+                          });
+                        },
+                        children: [
+                          Step1ContentWidget(
+                            formKey: stepKeys[0],
+                            fullNameController: fullNameController,
+                            fatherNameController: fatherNameController, 
+                            birthPlaceController: birthPlaceController, 
+                            dobController: dobController, 
+                            selectedGender: selectedGender,
+                            onGenderChanged: (value) {
+                              setState(() {
+                                // print(value);
+                                selectedGender = value;
+                                print(selectedGender);
+                                  });
+                            },
+                            isValidated: isValidated,
+                            onValidation: (bool isValid){
+                                setState(() {
+                                  isValidated = isValid;
+                                });
+                            },
+                            ),
+                            Step2Content(
+                              formKey: stepKeys[1],
+                              email: email, 
+                              isEmailVerified: isEmailVerified, 
+                              phoneNumber: phoneNumber, 
+                              showOtpScreen: showOtpScreen,
+                              
+                              onChangedPhone: (value){
+                                setState(() {
+                                  phoneNumber = value;
+                                });
+                              },
+                              onVerifyTap: (){
+                                setState(() {
+                                  showOtpScreen = true;
+                                });
+                              },
+                              ),
+                          
+                         Step3Content(
+                          formKey: stepKeys[2],
+                         ),
+                          _buildPasswordScreenPlaceholder(screenHeight),
+                         
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+              
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            if (currentStep > 1) {
+                              setState(() {
+                                currentStep--;
+                                _pageController.previousPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                              });
+                            }
+                            else {
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text(
+                            "Back",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: screenHeight * 0.02,
                             ),
                           ),
                         ),
-                        if (index < 3)
-                          Container(
-                            width: screenWidth * 0.15, 
-                            height: screenHeight * 0.003,
-                            color: isActive
-                                ? const Color(0xff002496) 
-                                : Colors.grey, 
-                          ),
-                      ],
-                    );
-                  }),
-                ),
-                SizedBox(height: screenWidth * 0.003),
-          
-                // PageView for dynamic content
-                Expanded(
-                  child: PageView(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (pageIndex) {
-                      setState(() {
-                        currentStep = pageIndex+1;
-                      });
-                    },
-                    children: [
-                      Step1ContentWidget(
-                        formKey: stepKeys[0],
-                        fullNameController: fullNameController,
-                        fatherNameController: fatherNameController, 
-                        birthPlaceController: birthPlaceController, 
-                        dobController: dobController, 
-                        selectedGender: selectedGender,
-                        onGenderChanged: (value) {
-                          setState(() {
-                            // print(value);
-                            selectedGender = value;
-                            print(selectedGender);
+                        ElevatedButton(
+                          onPressed: () {
+                            if(currentStep<4)
+                            {
+                              print("proceed pressed at 1");
+                                // if(shouldMoveSteps[currentStep-1])
+                                // {
+                                
+                                if (stepKeys[currentStep-1].currentState?.validate() ?? false) {
+                                  
+                                  if(currentStep==2)
+                                  {
+                                    print("yeah here");
+                                    if(shouldMove)
+                                    {
+                                         setState(() {
+                                // currentStep++;
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
                               });
-                        },
-                        isValidated: isValidated,
-                        onValidation: (bool isValid){
-                            setState(() {
-                              isValidated = isValid;
-                            });
-                        },
+                                    }
+                                    else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.white,
+      content: Text("Please verify to move forward.",
+      style: GoogleFonts.poppins(
+        color: AppColors.primaryColor,
+        fontSize: screenWidth * 0.04,
+      ),
+      ),
+      duration: const Duration(seconds: 2), // Duration the SnackBar will be displayed
+    ),
+  );
+                                 }
+                                  }
+                                  else 
+                                  {
+                                     setState(() {
+                                // currentStep++;
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                              });
+                                  }
+                    
+                                  
+                    } else {
+                      print('Please fill out all required fields.');
+                    }
+                                
+                                 
+                                // }
+                            }
+                            else if(currentStep == 4){
+                              if(stepKeys[currentStep-1].currentState?.validate() ?? false){
+                                Navigator.push(context, MaterialPageRoute(builder: (_)=>  LoginScreenUpdated()));
+                              }
+                              else{
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+              content: Text('Please try again'),
+              duration: Duration(seconds: 2),
+              backgroundColor: AppColors.primaryColor,
                         ),
-                        Step2Content(
-                          formKey: stepKeys[1],
-                          email: email, 
-                          isEmailVerified: isEmailVerified, 
-                          phoneNumber: phoneNumber, 
-                          showOtpScreen: showOtpScreen,
-                          
-                          onChangedPhone: (value){
-                            setState(() {
-                              phoneNumber = value;
-                            });
+                      );
+                              }
+                            }
+                          //  else if ( currentStep < 4) {
+                          //     // Animate and move to the next step
+                          //     // print(currentStep);
+                    
+                          //     print("procedd pressed cureent Stepp $currentStep");
+                          //     setState(() {
+                          //       // currentStep++;
+                          //       _pageController.nextPage(
+                          //         duration: const Duration(milliseconds: 500),
+                          //         curve: Curves.easeInOut,
+                          //       );
+                          //     });
+                          //   }
+                    
+                            else{
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginScreenUpdated()));
+                            }
                           },
-                          onVerifyTap: (){
-                            setState(() {
-                              showOtpScreen = true;
-                            });
-                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff0F3CC9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
-                      
-                     Step3Content(
-                      formKey: stepKeys[2],
-                     ),
-                      _buildPasswordScreenPlaceholder(screenHeight),
-                     
-                    ],
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.03),
-          
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        if (currentStep > 1) {
-                          setState(() {
-                            currentStep--;
-                            _pageController.previousPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                            );
-                          });
-                        }
-                        else {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: screenHeight * 0.02,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if(currentStep<4)
-                        {
-                          print("proceed pressed at 1");
-                            // if(shouldMoveSteps[currentStep-1])
-                            // {
-                            
-                            if (stepKeys[currentStep-1].currentState?.validate() ?? false) {
-                             
-                               setState(() {
-                            // currentStep++;
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                            );
-                          });
-    } else {
-      print('Please fill out all required fields.');
-    }
-                            
-                             
-                            // }
-                        }
-                        else if(currentStep == 4){
-                          if(stepKeys[currentStep-1].currentState?.validate() ?? false){
-                            Navigator.push(context, MaterialPageRoute(builder: (_)=>  LoginScreenUpdated()));
-                          }
-                          else{
-                             ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please try again'),
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.primaryColor,
-        ),
-      );
-                          }
-                        }
-                      //  else if ( currentStep < 4) {
-                      //     // Animate and move to the next step
-                      //     // print(currentStep);
-
-                      //     print("procedd pressed cureent Stepp $currentStep");
-                      //     setState(() {
-                      //       // currentStep++;
-                      //       _pageController.nextPage(
-                      //         duration: const Duration(milliseconds: 500),
-                      //         curve: Curves.easeInOut,
-                      //       );
-                      //     });
-                      //   }
-
-                        else{
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginScreenUpdated()));
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff0F3CC9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.08,
-                          vertical: screenHeight * 0.015,
-                        ),
-                        child: Text(
-                          currentStep < 4 ? "Proceed" : "Submit",
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.02,
-                            color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.08,
+                              vertical: screenHeight * 0.015,
+                            ),
+                            child: Text(
+                              currentStep < 4 ? "Proceed" : "Submit",
+                              style: TextStyle(
+                                fontSize: screenHeight * 0.02,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
-           if (showOtpScreen) _buildOtpOverlay(context),
-        ],
+             if (showOtpScreen) _buildOtpOverlay(context),
+          ],
+        ),
+      
       ),
-
     );
   }
 
