@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/svg.dart';
-import 'package:pre_dashboard/screens/forgot_pass.dart';
+import 'package:pre_dashboard/predashboard/screens/forgot_pass.dart';
 import '../constants/constants.dart';
 import '../Model/enum.dart';
 import '../Widgets/otpInput.dart';

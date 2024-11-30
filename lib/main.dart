@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pre_dashboard/bloc/user_bloc.dart';
-import 'package:pre_dashboard/screens/splash_screens/splash_screen1.dart';
+import 'package:pre_dashboard/predashboard/bloc/user_bloc.dart';
+import 'package:pre_dashboard/predashboard/screens/splash_screens/splash_screen1.dart';
 
 void main() {
   runApp( BlocProvider(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:pre_dashboard/screens/RegisterScreenVerified.dart';
-import 'package:pre_dashboard/screens/password_recovery_page_screen.dart';
-import 'package:pre_dashboard/screens/register_screen.dart';
+import 'package:pre_dashboard/predashboard/screens/password_recovery_page_screen.dart';
+import 'package:pre_dashboard/predashboard/screens/register_screen.dart';
 import '../constants/constants.dart';
 import '../widgets/custom_text_field.dart';
 // import '../screens/RegistrationScreen.dart';

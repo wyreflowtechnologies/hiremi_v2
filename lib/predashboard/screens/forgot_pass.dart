@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pre_dashboard/screens/LoginScreen.dart';
+import 'package:pre_dashboard/predashboard/screens/LoginScreen.dart';
 import '../constants/constants.dart';
 
 import '../widgets/background.dart';

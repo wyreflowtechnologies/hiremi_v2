@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pre_dashboard/widgets/custom_dropdown_field.dart';
-import 'package:pre_dashboard/widgets/custom_input_field.dart';
+import 'package:pre_dashboard/predashboard/widgets/custom_dropdown_field.dart';
+import 'package:pre_dashboard/predashboard/widgets/custom_input_field.dart';
 
 import '../../constants/constants.dart';
 

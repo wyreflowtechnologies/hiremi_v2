@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pre_dashboard/bloc/user_bloc.dart';
-import 'package:pre_dashboard/widgets/custom_text_field.dart';
-import 'package:pre_dashboard/widgets/gender_radio.dart';
+import 'package:pre_dashboard/predashboard/bloc/user_bloc.dart';
+import 'package:pre_dashboard/predashboard/widgets/custom_text_field.dart';
+import 'package:pre_dashboard/predashboard/widgets/gender_radio.dart';
 
 import '../../constants/constants.dart';
 

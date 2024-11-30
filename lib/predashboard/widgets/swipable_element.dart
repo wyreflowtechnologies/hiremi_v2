@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pre_dashboard/widgets/bottom_section.dart';
-import 'package:pre_dashboard/widgets/middle_section.dart';
-import 'package:pre_dashboard/widgets/topText_section.dart';
+import 'package:pre_dashboard/predashboard/widgets/bottom_section.dart';
+import 'package:pre_dashboard/predashboard/widgets/middle_section.dart';
+import 'package:pre_dashboard/predashboard/widgets/topText_section.dart';
 
 
 

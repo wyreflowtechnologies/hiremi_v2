@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pre_dashboard/screens/LoginScreen.dart';
+import 'package:pre_dashboard/predashboard/screens/LoginScreen.dart';
 import '../constants/constants.dart';
 import '../widgets/swipable_element.dart';
 import '../widgets/slide_indicator.dart';

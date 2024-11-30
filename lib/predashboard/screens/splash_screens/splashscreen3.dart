@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pre_dashboard/screens/swipable_start.dart';
+import 'package:pre_dashboard/predashboard/screens/swipable_start.dart';
 
 class FinalScreen extends StatefulWidget {
   @override

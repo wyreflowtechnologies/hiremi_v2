@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:pre_dashboard/screens/LoginScreen.dart';
-import 'package:pre_dashboard/widgets/custom_password_field.dart';
-import 'package:pre_dashboard/widgets/content_pages/step1_content.dart';
-import 'package:pre_dashboard/widgets/content_pages/step2_content.dart';
-import 'package:pre_dashboard/widgets/content_pages/step3_content.dart';
+import 'package:pre_dashboard/predashboard/screens/LoginScreen.dart';
+import 'package:pre_dashboard/predashboard/widgets/custom_password_field.dart';
+import 'package:pre_dashboard/predashboard/widgets/content_pages/step1_content.dart';
+import 'package:pre_dashboard/predashboard/widgets/content_pages/step2_content.dart';
+import 'package:pre_dashboard/predashboard/widgets/content_pages/step3_content.dart';
 import '../bloc/user_bloc.dart';
 import '../constants/constants.dart';
 
