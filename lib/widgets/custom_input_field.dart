@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomInputField extends StatelessWidget {
   final String label;
   final TextInputType? keyboardType;
+  final TextEditingController controller;
 
   const CustomInputField({required this.label,
   required this.validator,
+  required this.controller,
    this.keyboardType,
    Key? key}) : super(key: key);
 
@@ -37,6 +39,7 @@ class CustomInputField extends StatelessWidget {
         ),
         SizedBox(height: screenHeight * 0.01), // Responsive spacing
         TextFormField(
+          controller: controller,
           keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: label,

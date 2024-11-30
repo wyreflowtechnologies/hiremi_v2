@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pre_dashboard/bloc/user_bloc.dart';
 import 'package:pre_dashboard/screens/splash_screens/splash_screen1.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( BlocProvider(
+    create: (context) => UserBloc(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,14 +20,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'pre dashboard',
       theme: ThemeData(
-          textTheme: TextTheme(
-
+        textTheme: TextTheme(
           bodyMedium: GoogleFonts.poppins(
-            
-            fontSize: MediaQuery.of(context).size.width*0.035,
+            fontSize: MediaQuery.of(context).size.width * 0.035,
             fontWeight: FontWeight.w500,
           ),
-           titleLarge: GoogleFonts.poppins(
+          titleLarge: GoogleFonts.poppins(
             fontSize: MediaQuery.of(context).size.width * 0.07,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF163EC8),
@@ -39,10 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
-
       ),
-        
-      
       home: SplashScreen(),
     );
   }

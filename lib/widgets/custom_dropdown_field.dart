@@ -6,13 +6,20 @@ class CustomDropdownField extends StatelessWidget {
 
 
   CustomDropdownField({required this.label, 
+  
   required this.validator,
   required this.items,
+   this.onDropdownChanged,
+   required this.controller,
+
   Key? key}) : super(key: key);
 
 
   final String? Function(String?)? validator;
   final List<String> items;
+   final Function(String?)? onDropdownChanged;
+   final TextEditingController controller;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +46,30 @@ class CustomDropdownField extends StatelessWidget {
           ),
         ),
         SizedBox(height: screenHeight * 0.01),
-        DropdownButtonFormField<String>(
-          items:  items.map((String state) {
-            return DropdownMenuItem<String>(
-              alignment: Alignment.centerLeft,
-              value: state,
-              child: SizedBox(
-                width: screenWidth * 0.6,
-               child: Text(state,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.poppins(
-                  fontSize: screenWidth * 0.04,
-
-                ),
-                ),
-              ),
-            );
-          }).toList(),
-          onChanged: (value) {},
+      DropdownButtonFormField<String>(
+  items: items.map((String state) {
+    return DropdownMenuItem<String>(
+      alignment: Alignment.centerLeft,
+      value: state, // Explicitly set the value
+      child: SizedBox(
+        width: screenWidth * 0.6,
+        child: Text(
+          state,
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.poppins(
+            fontSize: screenWidth * 0.04,
+          ),
+        ),
+      ),
+    );
+  }).toList(),
+  value: items.contains(controller.text) ? controller.text : null, // Validate value
+  onChanged: (value) {
+    if (value != null) {
+      controller.text = value;
+      if (onDropdownChanged != null) onDropdownChanged!(value);
+    }
+  },
           decoration: InputDecoration(
             hintText: label,
             filled: true,

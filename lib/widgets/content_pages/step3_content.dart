@@ -5,11 +5,22 @@ import 'package:pre_dashboard/widgets/custom_input_field.dart';
 import '../../constants/constants.dart';
 
 class Step3Content extends StatelessWidget {
-  const Step3Content({super.key,
-  required this.formKey
+   Step3Content({super.key,
+  required this.formKey,
+  required this.collegeNameController,
+  required this.branchNameController,
+  required this.courseNameController,
+  required this.yearController,
+  required this.stateController,
   });
 
   final GlobalKey<FormState> formKey;
+   final TextEditingController collegeNameController ;
+  final TextEditingController branchNameController;
+  final TextEditingController courseNameController ;
+  final TextEditingController yearController ;
+  final TextEditingController stateController;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +34,9 @@ class Step3Content extends StatelessWidget {
             
             children: [
               
-              CustomInputField(label: "College Name",
+              CustomInputField(
+                controller: collegeNameController,
+                label: "College Name",
               validator: (value) {
                 if(value == null || value.isEmpty)
                 {
@@ -33,6 +46,7 @@ class Step3Content extends StatelessWidget {
               },
               ),
               CustomDropdownField(
+                controller: stateController,
                 items: AppColors.statesAndUTs,
                 label: "Select State",
               validator: (value) {
@@ -45,6 +59,7 @@ class Step3Content extends StatelessWidget {
               },
               ),
               CustomDropdownField(
+                controller: branchNameController,
                 items: AppColors.branches,
                 label: "Select Branch",
                validator: (value) {
@@ -57,6 +72,7 @@ class Step3Content extends StatelessWidget {
               },
               ),
               CustomDropdownField(
+                controller: courseNameController,
                 items: AppColors.courses,
                 label: "Select Course",
                validator: (value) {
@@ -69,6 +85,7 @@ class Step3Content extends StatelessWidget {
               },
               ),
               CustomInputField(label: "Select Year",
+                controller: yearController,
                 keyboardType: TextInputType.numberWithOptions(),
                 validator: (value) {
                 if(value == null || value.isEmpty)

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/constants.dart';
 
 class CustomTextField extends StatelessWidget {
+  final String? value;
   final TextEditingController controller;
   final String hintText;
   final String? labelText;
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     Key? key,
+    this.value,
     required this.controller,
     required this.hintText,
     this.labelText,
@@ -72,7 +74,7 @@ class CustomTextField extends StatelessWidget {
             ),
           isDropdown
               ? DropdownButtonFormField<String>(
-                  value: controller.text.isNotEmpty ? controller.text : null,
+                  value: value!=null? value: controller.text.isNotEmpty ? controller.text : null,
                   onChanged: (value) {
                     controller.text = value!;
                     if (onDropdownChanged != null) onDropdownChanged!(value);

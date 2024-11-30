@@ -8,7 +8,7 @@ class CustomPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String? errorText;
   final String? Function(String?)? validator;
-  
+  final TextEditingController passwordController;
 
   const CustomPasswordField({
     required this.label,
@@ -17,6 +17,7 @@ class CustomPasswordField extends StatelessWidget {
     required this.onToggleVisibility,
     required this.onChanged,
     required this.validator,
+    required this.passwordController,
     this.errorText,
     Key? key,
   }) : super(key: key);
@@ -44,6 +45,7 @@ class CustomPasswordField extends StatelessWidget {
         ),
         SizedBox(height: MediaQuery.of(context).size.width * 0.01),
         TextFormField(
+          controller: passwordController,
           obscureText: !isPasswordVisible, // Toggle visibility
           onChanged: onChanged, // Trigger validation on input change
           decoration: InputDecoration(
