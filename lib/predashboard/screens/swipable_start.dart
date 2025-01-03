@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pre_dashboard/predashboard/screens/LoginScreen.dart';
+import 'package:pre_dashboard/predashboard/widgets/custom_loading_bar.dart';
 import '../constants/constants.dart';
 import '../widgets/swipable_element.dart';
 import '../widgets/slide_indicator.dart';
@@ -11,6 +12,8 @@ import '../widgets/swipe_button.dart';
 ///For Representational purposed setState is used here.
 ///Following that more refactoring can be achieved hence clearer code
 ///left app bar arrow is not managed as state yet.
+
+
 
 class SwipableStartScreen extends StatefulWidget {
   const SwipableStartScreen({super.key});
@@ -25,31 +28,47 @@ class _SwipableStartScreenState extends State<SwipableStartScreen> {
   late Timer _timer;
   int _currentPageIndex = 0;
   final int _totalPages = 3;
+  double _loadingProgress = 0.0;
   bool isDragged = false;
   Color trackColor = Colors.white;
+  bool _hasNavigated = false; // Flag to track if navigation happened
 
+  final TextConstants textConstants = TextConstants();
+  final ImageDirectoryConstants imageConstants = ImageDirectoryConstants();
 
-   final TextConstants textConstants = TextConstants();
-  final ImageDirectoryConstants imageConstants = ImageDirectoryConstants();  
+  static const int totalTime = 5500; // 3 seconds
+  static const int durationPerPage = totalTime ~/ 3; // 1000ms per page for 3 pages
 
   @override
   void initState() {
     super.initState();
 
-    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-    
+    _timer = Timer.periodic(Duration(milliseconds: durationPerPage), (Timer timer) {
       if (_currentPageIndex < _totalPages - 1) {
-  _currentPageIndex++;
-} else {
-  _currentPageIndex = 0; 
-}
-_pageController.animateToPage(
-  _currentPageIndex,
-  duration: const Duration(milliseconds: 500),
-  curve: Curves.easeInOut,
-);
-
+        _currentPageIndex++;
+        _pageController.animateToPage(
+          _currentPageIndex,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        _timer.cancel();
+        _navigateToLogin();
+      }
     });
+  }
+  void _navigateToLogin() {
+    if (!_hasNavigated) {  // Check if navigation has already occurred
+      setState(() {
+        _hasNavigated = true;  // Set the flag to true after navigation
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreenUpdated(),
+        ),
+      );
+    }
   }
 
   @override
@@ -61,45 +80,57 @@ _pageController.animateToPage(
 
   @override
   Widget build(BuildContext context) {
-
     final screenWidth = MediaQuery.of(context).size.width;
-   
 
     return Scaffold(
       appBar: AppBar(
-        actions:  [
-        
-      IconButton(
-        icon:  Icon(Icons.chevron_left,
-         size: screenWidth * 0.05,
-        ),
-        onPressed: () {
-          
-        },
-        
-      ),
-    Expanded(
-      child: Center(
-        child: Image.asset(imageConstants.kBannerImage), 
-      ),
-    ),
-     Icon(
-      Icons.chevron_right,
-      size: screenWidth * 0.05,
-    ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.chevron_left,
+              size: screenWidth * 0.05,
+            ),
+            onPressed: () {},
+          ),
+          Expanded(
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Hire',
+                      style: TextStyle(color: Colors.black,
+                        fontSize: screenWidth*0.064,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'mi',
+                      style: TextStyle(color: Colors.blue,
+                          fontSize: screenWidth*0.064,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Icon(
+            Icons.chevron_right,
+            size: screenWidth * 0.05,
+          ),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(
-          screenWidth * 0.025
-        ),
+        padding: EdgeInsets.all(screenWidth * 0.025),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: PageView(
                 controller: _pageController,
-                children:  [
+                children: [
                   SwipableElement(
                     isFirst: true,
                     topTextfirst: textConstants.kPage1TopTextFirst,
@@ -120,37 +151,35 @@ _pageController.animateToPage(
                     topTextsecond: textConstants.kPage3TopTextSecond,
                     foreground: imageConstants.kPage3Image,
                     bottomText: textConstants.kPage3BottomText,
-
                   ),
                 ],
               ),
             ),
-            CustomSlideIndicator(pageController: _pageController),
+            // CustomLoadingBar(
+            //   onComplete: () {
+            //     print("Loading complete!");
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => LoginScreenUpdated(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            CustomLoadingBar(progress: _loadingProgress),
             CustomSwipedButton(
-            //   isDragged: isDragged, 
-            // onSwipeStart: (){
-            //     setState(() {
-            //           isDragged = true;
-            //           // trackColor = Colors.blue;
-            //         });
-            // }, 
               onSwipeEnd: () {
-                    setState(() {
-                      isDragged = false;
-                      trackColor = Colors.white;
-                    });
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginScreenUpdated()));
-                  },
+                setState(() {
+                  isDragged = false;
+                  trackColor = Colors.white;
+                });
+                _navigateToLogin();  // Trigger navigation
+              },
             ),
-          
           ],
         ),
       ),
     );
   }
 }
-
 

@@ -7,6 +7,7 @@ class GenderRadio extends StatelessWidget {
   final String? selectedGender;
   final ValueChanged<String?> onChanged;
   final bool isSelected;
+  final TextStyle? genderTextStyle;
 
   const GenderRadio({
     super.key,
@@ -14,6 +15,7 @@ class GenderRadio extends StatelessWidget {
     this.selectedGender,
     required this.onChanged,
     required this.isSelected,
+    this.genderTextStyle,
   });
 
   @override
@@ -36,16 +38,12 @@ class GenderRadio extends StatelessWidget {
               value: gender,
               groupValue: selectedGender,
               onChanged: onChanged,
-              // overlayColor: WidgetStatePropertyAll(
-              //   Colors.white
-              // ),
-              
               activeColor: const Color(0xff0F3CC9),
             ),
             Flexible(
               child: Text(
                 gender,
-                style: TextStyle(
+                style:genderTextStyle ??  TextStyle(
                   fontSize: screenWidth * 0.03,
                   fontWeight: FontWeight.w500,
                   color: selectedGender == gender
@@ -55,7 +53,7 @@ class GenderRadio extends StatelessWidget {
                 overflow: TextOverflow.ellipsis, // Add ellipsis if text is too long
                 maxLines: 1,
               ),
-              
+
             ),
           ],
         ),

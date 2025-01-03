@@ -13,7 +13,7 @@ class _FinalScreenState extends State<FinalScreen> {
 
     Future.delayed(Duration(seconds: 1), () {
       if (mounted) {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SwipableStartScreen()),
         );
@@ -27,11 +27,26 @@ class _FinalScreenState extends State<FinalScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Image.asset(
-          'assets/images/hireme_logo.png',
-          width: screenWidth * 0.5, // Dynamic width
-          height: screenWidth * 0.5, // Dynamic height
+      body:  Center(
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Hire',
+                style: TextStyle(color: Colors.black,
+                    fontSize: screenWidth*0.074,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              TextSpan(
+                text: 'mi',
+                style: TextStyle(color: Colors.blue,
+                    fontSize: screenWidth*0.074,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

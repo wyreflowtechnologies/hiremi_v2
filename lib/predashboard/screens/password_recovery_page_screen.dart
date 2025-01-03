@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pre_dashboard/API.dart';
+import 'package:pre_dashboard/predashboard/Services/user_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'otpScreen.dart'; // Import the OTP screen
+
 
 import '../constants/constants.dart';
 
@@ -18,6 +24,21 @@ class _PasswordRecoveryPageScreenState
     extends State<PasswordRecoveryPageScreen> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final UserService _userService = UserService();
+  Future<void> saveEmailToSharedPreferences(String email) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('enteredEmail', email);
+    print(email);
+
+  }
+
+
+
+
+  Future<void> storeCSRFToken(String csrfToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('csrfToken', csrfToken);
+  }
   bool _isButtonEnabled = true;
 
   @override
@@ -192,13 +213,47 @@ class _PasswordRecoveryPageScreenState
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
                 child: ElevatedButton(
-                  onPressed: _isButtonEnabled
-                      ? () {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            _sendOtp(context); // Pass context to navigate
-                          }
-                        }
-                      : null,
+                  // onPressed: _isButtonEnabled
+                  //     ? () {
+                  //         if (_formKey.currentState?.validate() ?? false) {
+                  //          // _sendOtp(context); // Pass context to navigate
+                  //
+                  //         }
+                  //       }
+                  //     : null,
+                  onPressed: () async {
+                    if (_formKey.currentState?.validate() ?? false) {
+                               // _sendOtp(context); // Pass context to navigate
+                      Map<String, dynamic> body = {"email": _emailController.text.trim()};
+
+                      final response = await _userService.createPostApi(body, ApiUrls.forgetPaassword);
+                      if (response.statusCode == 200) {
+                        String csrfToken = response.headers['set-cookie'] ?? '';
+                        await storeCSRFToken(csrfToken);
+                        await saveEmailToSharedPreferences(_emailController.text.trim());
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   SlidePageRoute(page: VerifyUrEmail()),
+                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
+                        );
+                      }
+                      else{
+                        final Map<String, dynamic> responseBody = jsonDecode(response.body);
+                        print("response body is ${response.body}");
+                        print("Status code is ${response.statusCode}");
+                        final errorMessage = responseBody['message'] ?? 'Unknown error';
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(' $errorMessage'),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     minimumSize: Size(double.infinity, screenHeight * 0.07),
@@ -251,7 +306,7 @@ class _PasswordRecoveryPageScreenState
   Widget _illustrationImage(double screenWidth) {
     return Center(
       child: Image.asset(
-        'assets/images/illustration.png',
+        'assets/images/FP.png',
         width: screenWidth * 0.8,
         height: screenWidth * 0.8,
         fit: BoxFit.contain,

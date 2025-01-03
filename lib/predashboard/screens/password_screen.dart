@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pre_dashboard/predashboard/screens/LoginScreen.dart';
-import 'package:pre_dashboard/predashboard/screens/password_recovery_page_screen.dart';
+
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({Key? key}) : super(key: key);

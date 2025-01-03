@@ -2,7 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/svg.dart';
+import 'package:pre_dashboard/API.dart';
+import 'package:pre_dashboard/predashboard/Services/user_service.dart';
 import 'package:pre_dashboard/predashboard/screens/forgot_pass.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../Model/enum.dart';
 import '../Widgets/otpInput.dart';
@@ -16,10 +19,12 @@ class OTPVerificationScreen extends StatefulWidget {
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final TextEditingController _otpController = TextEditingController();
+  final UserService _userService = UserService();
   OtpStatus _otpStatus = OtpStatus.normal;
   Timer? _timer;
+  bool isLoading = false;
   int _timeLeft = 120;
-  final String _correctOtp = "543261";
+  final String _correctOtp = "123456";
   bool _isVerified = false;
 
   @override
@@ -60,25 +65,61 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     );
   }
 
-  void validateOtp() {
+  // void validateOtp() {
+  //   setState(() {
+  //     if (_otpController.text.length != 6) {
+  //       _otpStatus = OtpStatus.error;
+  //       return;
+  //     }
+  //
+  //     if (_otpController.text == _correctOtp) {
+  //       _otpStatus = OtpStatus.success;
+  //       _isVerified = true;
+  //       _timer?.cancel();
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => const ForgotPass()),
+  //       );
+  //     } else {
+  //       _otpStatus = OtpStatus.error;
+  //     }
+  //   });
+  // }
+  Future<void> validateOtp(String otp) async {
     setState(() {
-      if (_otpController.text.length != 6) {
-        _otpStatus = OtpStatus.error;
-        return;
-      }
+      isLoading = true;
+    });
 
-      if (_otpController.text == _correctOtp) {
-        _otpStatus = OtpStatus.success;
-        _isVerified = true;
-        _timer?.cancel();
+    try {
+      final response = await _userService.createPostApi({"otp": otp}, ApiUrls.otpValidation);
+      setState(() {
+        isLoading = false;
+      });
+
+      if (response.statusCode == 200) {
+        // Store the OTP in shared preferences (example usage)
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('otp', otp);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ForgotPass()),
+          MaterialPageRoute(builder: (context) => ForgotPass()),
         );
+
       } else {
-        _otpStatus = OtpStatus.error;
+        print(response.statusCode);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Invalid OTP. Please try again.')),
+        );
       }
-    });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred. Please try again later.')),
+      );
+    }
   }
 
   @override
@@ -109,8 +150,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                SvgPicture.asset(
-                  'assets/images/optImage.svg',
+                // SvgPicture.asset(
+                //   'assets/images/optImage.svg',
+                //   height: 250,
+                // ),
+                Image.asset(
+                  'assets/images/Enter OTP-bro (1).png',
                   height: 250,
                 ),
                 const SizedBox(height: 40),
@@ -183,20 +228,24 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       const TextSpan(
                         text: ' code that you have received in your mail box. ',
                       ),
-                      TextSpan(
-                        text: 'Resend OTP',
-                        style: const TextStyle(
-                          color: AppColors.linkUnderline,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = resendOtp,
-                      ),
+                      // TextSpan(
+                      //   text: 'Resend OTP',
+                      //   style: const TextStyle(
+                      //     color: AppColors.linkUnderline,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      //   recognizer: TapGestureRecognizer()..onTap = (){
+                      //
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: validateOtp,
+                  onPressed: (){
+                    validateOtp(_otpController.text.toString().trim());
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryDark,
                     minimumSize: const Size(double.infinity, 50),

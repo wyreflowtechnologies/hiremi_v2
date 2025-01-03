@@ -8,6 +8,7 @@ class User {
   final String state;
   final String email;
   final String phoneNumber;
+  final String whatsAppNumber;
   final String collegeName;
   final String branch;
   final String course;
@@ -22,6 +23,7 @@ class User {
     this.state = "",
     this.email = "",
     this.phoneNumber = "",
+    this.whatsAppNumber="",
     this.collegeName = "",
     this.branch = "",
     this.course = "",
@@ -37,6 +39,7 @@ class User {
     String? state,
     String? email,
     String? phoneNumber,
+    String? whatsAppNumber,
     String? collegeName,
     String? branch,
     String? course,
@@ -51,6 +54,7 @@ class User {
       state: state ?? this.state,
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      whatsAppNumber: whatsAppNumber ?? this.whatsAppNumber,
       collegeName: collegeName ?? this.collegeName,
       branch: branch ?? this.branch,
       course: course ?? this.course,

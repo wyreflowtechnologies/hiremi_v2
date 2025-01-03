@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(Duration(seconds: 1), () {
       if (mounted) {
         _controller.forward().then((_) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FinalScreen()),
           );
@@ -80,8 +80,8 @@ class _SplashScreenState extends State<SplashScreen>
             builder: (context, child) {
               return Transform.scale(
                 scale: _scaleAnimation.value,
-                child: SvgPicture.asset(
-                  'assets/images/tie.svg',
+                child: Image.asset(
+                  'assets/images/tie.png',
                   width: screenWidth * 0.15,
                   height: screenHeight * 0.15,
                 ),
