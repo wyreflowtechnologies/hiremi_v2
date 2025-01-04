@@ -321,7 +321,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     Expanded(
                       child: PageView(
                         controller: _pageController,
-                       physics: const NeverScrollableScrollPhysics(),
+                       // physics: const NeverScrollableScrollPhysics(),
                         onPageChanged: (pageIndex) {
                           setState(() {
                             currentStep = pageIndex + 1;
