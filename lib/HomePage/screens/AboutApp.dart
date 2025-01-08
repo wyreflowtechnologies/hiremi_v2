@@ -157,14 +157,14 @@ class _About_AppState extends State<About_App> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomBar(
-        currentIndex: currentIndex,
-        onTabSelected: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-        },
-      ),
+      // bottomNavigationBar: CustomBottomBar(
+      //   currentIndex: currentIndex,
+      //   onTabSelected: (value) {
+      //     setState(() {
+      //       currentIndex = value;
+      //     });
+      //   },
+      // ),
     );
   }
 }

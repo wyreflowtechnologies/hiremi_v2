@@ -100,7 +100,7 @@ class _CustombottombarState extends State<CustomBottomBar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HomeScreen(isVerified: false)),
+                  builder: (context) => HomeScreen(isVerified: false,animation: true,)),
             );
           }
 

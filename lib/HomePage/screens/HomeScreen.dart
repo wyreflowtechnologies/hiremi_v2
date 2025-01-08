@@ -19,7 +19,12 @@ import 'statusScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool isVerified;
-  const HomeScreen({Key? key, required this.isVerified}) : super(key: key);
+  final bool animation;
+  const HomeScreen({
+    Key? key,
+    required this.isVerified,
+    required this.animation,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,77 +37,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _secondController.forward();
-        }
-      });
-
-    _secondController = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-
-    _controller.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showAlertBox(context);
+      _controller = AnimationController(
+        duration: Duration(seconds: 2),
+        vsync: this,
+      )..addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            _secondController.forward();
+          }
+        });
+
+      _secondController = AnimationController(
+        duration: Duration(seconds: 2),
+        vsync: this,
+      );
+
+      _controller.forward();
     });
-  }
-
-  Widget _buildAnimatedText(BuildContext context, String text,
-      AnimationController controller, bool isSecond) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    final animations = text.split('').asMap().entries.map((entry) {
-      int index = entry.key;
-      return {
-        'offset': Tween<Offset>(
-          begin: Offset(0, 0.5),
-          end: Offset(0, 0),
-        ).animate(CurvedAnimation(
-          parent: controller,
-          curve: Interval(
-            index / text.length,
-            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
-            curve: Curves.easeOut,
-          ),
-        )),
-        'fade': Tween<double>(
-          begin: 0.0,
-          end: 1.0,
-        ).animate(CurvedAnimation(
-          parent: controller,
-          curve: Interval(
-            index / text.length,
-            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
-            curve: Curves.easeIn,
-          ),
-        )),
-      };
-    }).toList();
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: text.split('').asMap().entries.map((entry) {
-        int index = entry.key;
-        String letter = entry.value;
-        return FadeTransition(
-            opacity: animations[index]['fade'] as Animation<double>,
-            child: SlideTransition(
-                position: animations[index]['offset'] as Animation<Offset>,
-                child: Text(letter,
-                    style: isSecond
-                        ? GoogleFonts.poppins(
-                            fontSize: screenWidth * 0.035,
-                            fontWeight: FontWeight.w400)
-                        : GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            fontSize: screenWidth * 0.07,
-                            color: Color.fromARGB(255, 15, 16, 201)))));
-      }).toList(),
-    );
   }
 
   // void _showAlertBox(BuildContext context) {
@@ -275,6 +227,59 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   //     _confettiController.dispose();
   //   });
   // }
+  Widget _buildAnimatedText(BuildContext context, String text,
+      AnimationController controller, bool isSecond) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    final animations = text.split('').asMap().entries.map((entry) {
+      int index = entry.key;
+      return {
+        'offset': Tween<Offset>(
+          begin: Offset(0, 0.5),
+          end: Offset(0, 0),
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Interval(
+            index / text.length,
+            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
+            curve: Curves.easeOut,
+          ),
+        )),
+        'fade': Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Interval(
+            index / text.length,
+            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
+            curve: Curves.easeIn,
+          ),
+        )),
+      };
+    }).toList();
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: text.split('').asMap().entries.map((entry) {
+        int index = entry.key;
+        String letter = entry.value;
+        return FadeTransition(
+            opacity: animations[index]['fade'] as Animation<double>,
+            child: SlideTransition(
+                position: animations[index]['offset'] as Animation<Offset>,
+                child: Text(letter,
+                    style: isSecond
+                        ? GoogleFonts.poppins(
+                            fontSize: screenWidth * 0.035,
+                            fontWeight: FontWeight.w400)
+                        : GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: screenWidth * 0.07,
+                            color: Color.fromARGB(255, 15, 16, 201)))));
+      }).toList(),
+    );
+  }
+
   void _showAlertBox(BuildContext context) {
     // Initialize the confetti controller
     ConfettiController _confettiController =
@@ -515,10 +520,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               color: Colors.white,
               height: screenHeight *
                   0.420, // Use a percentage of screen height (e.g., 30% of screen height)
+
               child: _isFeaturedSectionVisible
                   ? FeaturedSection(
-                      isVerified: widget
-                          .isVerified) // Show the FeaturedSection when true
+                      isVerified: widget.isVerified,
+                      animation: true,
+                    ) // Show the FeaturedSection when true
                   : Container(), // Empty container when false (still preserves the space)
             ),
             JobsForYouSection(),

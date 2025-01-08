@@ -212,14 +212,14 @@ class _HelpSupportState extends State<HelpSupport> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomBar(
-        currentIndex: currentIndex,
-        onTabSelected: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-        },
-      ),
+      // bottomNavigationBar: CustomBottomBar(
+      //   currentIndex: currentIndex,
+      //   onTabSelected: (value) {
+      //     setState(() {
+      //       currentIndex = value;
+      //     });
+      //   },
+      // ),
     );
   }
 }
