@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pre_dashboard/HomePage/Widget/popupmsg.dart';
 import 'package:pre_dashboard/HomePage/screens/AboutApp.dart';
+import 'package:pre_dashboard/HomePage/screens/Drawer/Settings.dart';
 import 'package:pre_dashboard/HomePage/screens/Drawer/help_Support.dart';
 import 'package:pre_dashboard/HomePage/screens/HelpAnsSupport.dart';
 
@@ -45,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
                               strokeWidth: width * 0.015,
                             ),
                             Text(
-                              '50%',
+                              '25%',
                               style: TextStyle(
                                 fontSize: width * 0.032,
                                 fontWeight: FontWeight.w600,
@@ -55,14 +57,14 @@ class CustomDrawer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: width * 0.03),
+                      SizedBox(width: width * 0.01),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Zaidi Akram',
                             style: TextStyle(
-                              fontSize: width * 0.042,
+                              fontSize: width * 0.039,
                               fontWeight: FontWeight.w600,
                               color: const Color(0xFF1F1F1F),
                             ),
@@ -70,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                           Text(
                             'zaidiakram123@gmail.com',
                             style: TextStyle(
-                              fontSize: width * 0.032,
+                              fontSize: width * 0.028,
                               color: const Color(0xFF6B7280),
                             ),
                           ),
@@ -111,31 +113,31 @@ class CustomDrawer extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: width * 0.02),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: width * 0.02,
-                            vertical: width * 0.004,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 212, 176, 18),
-                            borderRadius: BorderRadius.circular(width * 0.01),
-                          ),
-                          child: Text(
-                            'Get Verified',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * 0.024,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(left: width * 0.02),
+                        //   padding: EdgeInsets.symmetric(
+                        //     horizontal: width * 0.02,
+                        //     vertical: width * 0.004,
+                        //   ),
+                        //   decoration: BoxDecoration(
+                        //     color: const Color.fromARGB(255, 212, 176, 18),
+                        //     borderRadius: BorderRadius.circular(width * 0.01),
+                        //   ),
+                        //   child: Text(
+                        //     'Get Verified',
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: width * 0.024,
+                        //       fontWeight: FontWeight.w700,
+                        //       letterSpacing: 0.5,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: height * 0.01),
                     Text(
-                      'Verify your profile to unlock premium\nfeatures and lifetime benefits.',
+                      'Complete profile verification to access premium features',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: width * 0.032,
@@ -143,23 +145,27 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: height * 0.008),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(width * 0.01),
-                      ),
-                      width: double.infinity,
-                      child: Center(
-                        child: Text(
-                          'Complete your profile & Get Started',
-                          style: TextStyle(
-                            color: const Color(0xFF0F3CC9),
-                            fontSize: width * 0.03,
-                            fontWeight: FontWeight.w600,
+                    ElevatedButton(onPressed: (){
+
+                    },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(width*0.02), // Adjust the radius as needed
                           ),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Adjust padding
                         ),
-                      ),
-                    ),
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Get Verified",style: TextStyle(
+                          color: const Color(0xFF0F3CC9),
+                        ),),
+                        SizedBox(width: width*0.02,),
+                        Icon(Icons.check_circle_outline,
+                        color: const Color(0xFF0F3CC9),
+                        )
+                      ],
+                    ))
                   ],
                 ),
               ),
@@ -168,21 +174,31 @@ class CustomDrawer extends StatelessWidget {
 
               _buildMenuItemGeneral(
                 context,
-                Icons.menu,
+                Icons.account_circle,
                 'Your Profile',
-                () => print('Settings tapped'),
+                () {
+                showCustomPopup(context);
+
+                }
               ),
               SizedBox(height: height * 0.015),
               _buildMenuItemGeneral(
                 context,
-                Icons.lock,
+                Icons.menu,
                 'Settings',
-                () => print('Change Password tapped'),
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingsScreen(),
+                    ),
+                  );
+                },
               ),
               SizedBox(height: height * 0.015),
               _buildMenuItemGeneral(
                 context,
-                Icons.paste,
+                Icons.assignment,
                 'About App',
                 ()  {
                   Navigator.push(
@@ -196,7 +212,7 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(height: height * 0.015),
               _buildMenuItemGeneral(
                 context,
-                Icons.info,
+                Icons.quickreply,
                 'Help & Support',
                 () {
                   // Navigator.push(

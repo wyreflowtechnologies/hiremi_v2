@@ -126,11 +126,18 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 
       // Handle the API response
       if (response.statusCode == 201) {
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen(isVerified: true,
+            animation: true, // Pass the value here
+          )),
+        );
         print("User registered successfully");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
            SnackBar(
-            content: Text("${response.body} ssdd"),
+            content: Text("${response.body}"),
              behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 30),
              backgroundColor: Colors.redAccent,

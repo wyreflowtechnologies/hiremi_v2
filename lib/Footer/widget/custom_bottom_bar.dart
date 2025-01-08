@@ -102,7 +102,9 @@ class _CustombottombarState extends State<CustomBottomBar> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen(isVerified: false)),
+              MaterialPageRoute(builder: (context) => HomeScreen(isVerified: false,
+                animation: false, // Pass the value here
+              )),
             );
           }
 
