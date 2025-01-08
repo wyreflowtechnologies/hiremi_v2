@@ -185,9 +185,10 @@ class _LoginAnimationState extends State<LoginAnimation>
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..repeat(reverse: false);
+    )..forward();
 
-    _rotationAnimation = Tween<double>(begin: 0, end: 1 * pi).animate(_controller);
+    _rotationAnimation =
+        Tween<double>(begin: 0, end: 1 * pi).animate(_controller);
 
     // Controller for the expansion animation
     _expansionController = AnimationController(
@@ -202,21 +203,20 @@ class _LoginAnimationState extends State<LoginAnimation>
       ),
     );
 
-    // Start expansion after rotation finishes
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        _controller.stop();
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        // Start the expansion animation
         _expansionController.forward();
-      }
-    });
 
-    // Navigate to the next screen after expansion
-    _navigationTimer = Timer(const Duration(seconds: 5), () {
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => widget.nextScreen),
-        );
+        // Initialize the navigation timer after expansion starts
+        _navigationTimer = Timer(const Duration(seconds: 5), () {
+          if (mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => widget.nextScreen),
+            );
+          }
+        });
       }
     });
   }
@@ -267,7 +267,8 @@ class _LoginAnimationState extends State<LoginAnimation>
                           size.width * 0.5 * scale + 20,
                           size.width * 0.5 * scale + 20,
                         ),
-                        painter: QuarterCirclePainter(gap: 10.0),
+                        painter: QuarterCirclePainter(
+                            gap: 10.0, rotationAngle: _rotationAnimation.value),
                       ),
                     ),
                   ],
@@ -294,8 +295,9 @@ class _LoginAnimationState extends State<LoginAnimation>
 
 class QuarterCirclePainter extends CustomPainter {
   final double gap;
+  final double rotationAngle;
 
-  QuarterCirclePainter({this.gap = 10.0});
+  QuarterCirclePainter({this.gap = 10.0, required this.rotationAngle});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -311,7 +313,18 @@ class QuarterCirclePainter extends CustomPainter {
       radius: radius,
     );
 
-    canvas.drawArc(rect, -pi / 2, pi / 2, false, paint);
+    // Update start angle using rotationAngle to rotate the arc
+    double startAngle =
+        -pi / 2 + rotationAngle; // Initial offset at -pi/2 + dynamic rotation
+
+    // Draw the arc with the updated start angle
+    canvas.drawArc(
+      rect,
+      startAngle, // The start angle progresses over time
+      pi / 2, // Sweep angle stays as pi / 2 (quarter-circle)
+      false,
+      paint,
+    );
   }
 
   @override
