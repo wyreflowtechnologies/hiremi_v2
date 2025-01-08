@@ -7,7 +7,6 @@ import 'package:pre_dashboard/predashboard/Services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'otpScreen.dart'; // Import the OTP screen
 
-
 import '../constants/constants.dart';
 
 class PasswordRecoveryPageScreen extends StatefulWidget {
@@ -29,16 +28,13 @@ class _PasswordRecoveryPageScreenState
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('enteredEmail', email);
     print(email);
-
   }
-
-
-
 
   Future<void> storeCSRFToken(String csrfToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('csrfToken', csrfToken);
   }
+
   bool _isButtonEnabled = true;
 
   @override
@@ -210,44 +206,123 @@ class _PasswordRecoveryPageScreenState
               SizedBox(height: screenHeight * 0.04),
 
               // Send OTP Button
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+              //   child: ElevatedButton(
+              //     // onPressed: _isButtonEnabled
+              //     //     ? () {
+              //     //         if (_formKey.currentState?.validate() ?? false) {
+              //     //          // _sendOtp(context); // Pass context to navigate
+              //     //
+              //     //         }
+              //     //       }
+              //     //     : null,
+              //     onPressed: () async {
+              //       if (_formKey.currentState?.validate() ?? false) {
+              //                  // _sendOtp(context); // Pass context to navigate
+              //         Map<String, dynamic> body = {"email": _emailController.text.trim()};
+
+              //         final response = await _userService.createPostApi(body, ApiUrls.forgetPaassword);
+              //         if (response.statusCode == 200) {
+              //           String csrfToken = response.headers['set-cookie'] ?? '';
+              //           await storeCSRFToken(csrfToken);
+              //           await saveEmailToSharedPreferences(_emailController.text.trim());
+              //           // Navigator.pushReplacement(
+              //           //   context,
+              //           //   SlidePageRoute(page: VerifyUrEmail()),
+              //           // );
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
+              //           );
+              //         }
+              //         else{
+              //           final Map<String, dynamic> responseBody = jsonDecode(response.body);
+              //           print("response body is ${response.body}");
+              //           print("Status code is ${response.statusCode}");
+              //           final errorMessage = responseBody['message'] ?? 'Unknown error';
+              //           ScaffoldMessenger.of(context).showSnackBar(
+              //             SnackBar(
+              //               content: Text(' $errorMessage'),
+              //               duration: Duration(seconds: 3),
+              //             ),
+              //           );
+              //         }
+              //       }
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: AppColors.primaryColor,
+              //       minimumSize: Size(double.infinity, screenHeight * 0.07),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10),
+              //       ),
+              //     ),
+              //     child: Text(
+              //       "Send OTP",
+              //       style: TextStyle(
+              //         color: AppColors.white,
+              //         fontSize: responsiveFontSize(16),
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
+              // New code for the OTP
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
                 child: ElevatedButton(
-                  // onPressed: _isButtonEnabled
-                  //     ? () {
-                  //         if (_formKey.currentState?.validate() ?? false) {
-                  //          // _sendOtp(context); // Pass context to navigate
-                  //
-                  //         }
-                  //       }
-                  //     : null,
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                               // _sendOtp(context); // Pass context to navigate
-                      Map<String, dynamic> body = {"email": _emailController.text.trim()};
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
 
-                      final response = await _userService.createPostApi(body, ApiUrls.forgetPaassword);
-                      if (response.statusCode == 200) {
-                        String csrfToken = response.headers['set-cookie'] ?? '';
-                        await storeCSRFToken(csrfToken);
-                        await saveEmailToSharedPreferences(_emailController.text.trim());
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   SlidePageRoute(page: VerifyUrEmail()),
-                        // );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
-                        );
-                      }
-                      else{
-                        final Map<String, dynamic> responseBody = jsonDecode(response.body);
-                        print("response body is ${response.body}");
-                        print("Status code is ${response.statusCode}");
-                        final errorMessage = responseBody['message'] ?? 'Unknown error';
+                      try {
+                        // Request body
+                        Map<String, dynamic> body = {
+                          "email": _emailController.text.trim(),
+                        };
+
+                        // API calling
+                        final response = await _userService.createPostApi(
+                            body, ApiUrls.forgetPaassword);
+
+                        Navigator.pop(context);
+
+                        if (response.statusCode == 200) {
+                          String csrfToken =
+                              response.headers['set-cookie'] ?? '';
+                          await storeCSRFToken(csrfToken);
+
+                          await saveEmailToSharedPreferences(
+                              _emailController.text.trim());
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTPVerificationScreen()),
+                          );
+                        } else {
+                          final responseBody = jsonDecode(response.body);
+                          final errorMessage =
+                              responseBody['message'] ?? 'Unknown error';
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(errorMessage),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
+                      } catch (error) {
+                        Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(' $errorMessage'),
+                            content:
+                                Text('An error occurred: ${error.toString()}'),
                             duration: Duration(seconds: 3),
                           ),
                         );
