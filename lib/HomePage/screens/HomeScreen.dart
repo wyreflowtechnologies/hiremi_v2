@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/animation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pre_dashboard/Footer/widget/custom_bottom_bar.dart';
 import 'package:pre_dashboard/HomePage/constants/constantsColor.dart';
 import '../Widget/carouselSection.dart';
@@ -26,12 +27,82 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool _isFeaturedSectionVisible = false;
+  late AnimationController _controller;
+  late AnimationController _secondController;
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _secondController.forward();
+        }
+      });
+
+    _secondController = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _controller.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showAlertBox(context);
     });
+  }
+
+  Widget _buildAnimatedText(BuildContext context, String text,
+      AnimationController controller, bool isSecond) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    final animations = text.split('').asMap().entries.map((entry) {
+      int index = entry.key;
+      return {
+        'offset': Tween<Offset>(
+          begin: Offset(0, 0.5),
+          end: Offset(0, 0),
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Interval(
+            index / text.length,
+            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
+            curve: Curves.easeOut,
+          ),
+        )),
+        'fade': Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Interval(
+            index / text.length,
+            (index + 4) / text.length > 1.0 ? 1.0 : (index + 4) / text.length,
+            curve: Curves.easeIn,
+          ),
+        )),
+      };
+    }).toList();
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: text.split('').asMap().entries.map((entry) {
+        int index = entry.key;
+        String letter = entry.value;
+        return FadeTransition(
+            opacity: animations[index]['fade'] as Animation<double>,
+            child: SlideTransition(
+                position: animations[index]['offset'] as Animation<Offset>,
+                child: Text(letter,
+                    style: isSecond
+                        ? GoogleFonts.poppins(
+                            fontSize: screenWidth * 0.035,
+                            fontWeight: FontWeight.w400)
+                        : GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: screenWidth * 0.07,
+                            color: Color.fromARGB(255, 15, 16, 201)))));
+      }).toList(),
+    );
   }
 
   // void _showAlertBox(BuildContext context) {
@@ -337,30 +408,48 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         padding: EdgeInsets.only(top: screenWidth * 0.05),
                         child: Column(
                           children: [
-                            FadeTransition(
-                              opacity: _fadeAnimation,
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: "Congratulations!\n",
-                                      style: TextStyle(
-                                        color: Color(0xFF163EC8),
-                                      ), // Change this color as needed
-                                    ),
-                                    TextSpan(
-                                      text: "Your account has been created",
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            _buildAnimatedText(
+                                context, "Congratulations", _controller, false),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildAnimatedText(
+                                    context,
+                                    "Your account has been created",
+                                    _secondController,
+                                    true),
+                                Icon(
+                                  Icons.verified,
+                                  color: Color.fromARGB(225, 15, 60, 201),
+                                )
+                              ],
                             ),
+                            // FadeTransition(
+                            //   opacity: _fadeAnimation,
+                            //   child: RichText(
+                            //     textAlign: TextAlign.center,
+                            //     text: TextSpan(
+                            //       style: const TextStyle(
+                            //         fontSize: 18.0,
+                            //         fontWeight: FontWeight.bold,
+                            //         color: Colors.black,
+                            //       ),
+                            //       children: [
+                            //         // TextSpan(
+                            //         //   text: "Congratulations!\n",
+                            //         //   style: TextStyle(
+                            //         //     color: Color(0xFF163EC8),
+                            //         //   ), // Change this color as needed
+                            //         // ),
+                            //         //  _buildAnimatedText("Congratulations", _controller, false),
+                            //         TextSpan(
+                            //           text: "Your account has been created",
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                             const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
@@ -426,7 +515,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               color: Colors.white,
               height: screenHeight *
                   0.420, // Use a percentage of screen height (e.g., 30% of screen height)
-
               child: _isFeaturedSectionVisible
                   ? FeaturedSection(
                       isVerified: widget
