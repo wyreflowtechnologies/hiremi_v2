@@ -24,9 +24,9 @@ class RegisterScreenEducational extends StatefulWidget {
 class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
 //Zaidi's
 
-  final TextEditingController fullNameController=TextEditingController();
-  final TextEditingController fatherNameController=TextEditingController();
-  final TextEditingController cityController=TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController fatherNameController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
 
   final TextEditingController dobController = TextEditingController();
@@ -36,7 +36,8 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   final TextEditingController branchNameController = TextEditingController();
   final TextEditingController courseNameController = TextEditingController();
   final TextEditingController yearController = TextEditingController();
-  final TextEditingController confirmPasswordController=TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController collegeStateController = TextEditingController();
   final TextEditingController collegeCityController = TextEditingController();
 
@@ -75,9 +76,6 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   //   }
   // }
 
-
-
-
   // Future<void> registerUser(Map<String, String> userData) async {
   //   final url = Uri.parse('http://13.127.246.196:8000/api/registers/');
   //   try {
@@ -105,69 +103,137 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   //   }
   // }
 
+  // Future<void> registerUser(Map<String, String> userData) async {
+  //   final url = Uri.parse('http://13.127.246.196:8000/api/registers/');
+
+  //   try {
+  //     // Ensure the date is in the correct format before making the API call
+  //     if (userData.containsKey("date_of_birth")) {
+  //       final inputDate = userData["date_of_birth"]!; // e.g., "30/12/2024"
+  //       final parsedDate = DateFormat('dd/MM/yyyy').parse(inputDate);
+  //       final formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
+  //       userData["date_of_birth"] = formattedDate; // Update the date in the payload
+  //     }
+
+  //     // Make the API POST request
+  //     final response = await http.post(
+  //       url,
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode(userData),
+  //     );
+
+  //     // Handle the API response
+  //     if (response.statusCode == 201) {
+
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => HomeScreen(isVerified: true,
+  //           animation: true, // Pass the value here
+  //         )),
+  //       );
+  //       print("User registered successfully");
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //          SnackBar(
+  //           content: Text("${response.body}"),
+  //            behavior: SnackBarBehavior.floating,
+  //           duration: Duration(seconds: 30),
+  //            backgroundColor: Colors.redAccent,
+  //            action: SnackBarAction(
+  //              label: 'CLOSE', // You can customize the label to use a cross or any text
+  //              onPressed: () {
+  //                ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Close the SnackBar when clicked
+  //              },
+  //            ),
+  //         ),
+  //       );
+  //       print("Registration failed: ${response.body}");
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text("$e"),
+  //       duration: Duration(seconds: 30),
+  //         behavior: SnackBarBehavior.floating,
+  //         backgroundColor: Colors.redAccent,
+  //         action: SnackBarAction(
+  //           label: 'CLOSE', // You can customize the label to use a cross or any text
+  //           onPressed: () {
+  //             ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Close the SnackBar when clicked
+  //           },
+  //         ),
+  //       ),
+  //     );
+  //     print("Error: $e");
+  //   }
+  // }
+
   Future<void> registerUser(Map<String, String> userData) async {
     final url = Uri.parse('http://13.127.246.196:8000/api/registers/');
 
     try {
-      // Ensure the date is in the correct format before making the API call
       if (userData.containsKey("date_of_birth")) {
-        final inputDate = userData["date_of_birth"]!; // e.g., "30/12/2024"
-        final parsedDate = DateFormat('dd/MM/yyyy').parse(inputDate);
-        final formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
-        userData["date_of_birth"] = formattedDate; // Update the date in the payload
+        userData["date_of_birth"] = _formatDate(userData["date_of_birth"]!);
       }
 
-      // Make the API POST request
+      // API POST request
       final response = await http.post(
         url,
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(userData),
       );
 
-      // Handle the API response
-      if (response.statusCode == 201) {
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen(isVerified: true,
-            animation: true, // Pass the value here
-          )),
-        );
-        print("User registered successfully");
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-           SnackBar(
-            content: Text("${response.body}"),
-             behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 30),
-             backgroundColor: Colors.redAccent,
-             action: SnackBarAction(
-               label: 'CLOSE', // You can customize the label to use a cross or any text
-               onPressed: () {
-                 ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Close the SnackBar when clicked
-               },
-             ),
-          ),
-        );
-        print("Registration failed: ${response.body}");
-      }
+      // To Reduce Redundancy
+      _handleApiResponse(response);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("$e"),
-        duration: Duration(seconds: 30),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.redAccent,
-          action: SnackBarAction(
-            label: 'CLOSE', // You can customize the label to use a cross or any text
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Close the SnackBar when clicked
-            },
-          ),
-        ),
-      );
+      _showErrorSnackBar(e.toString());
       print("Error: $e");
     }
+  }
+
+// Helper function to format date
+  String _formatDate(String inputDate) {
+    try {
+      final parsedDate = DateFormat('dd/MM/yyyy').parse(inputDate);
+      return DateFormat('yyyy-MM-dd').format(parsedDate);
+    } catch (e) {
+      return inputDate;
+    }
+  }
+
+// Helper function to handle API responses efficiently
+  void _handleApiResponse(http.Response response) {
+    if (response.statusCode == 201) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeScreen(
+                  isVerified: true,
+                  animation: true,
+                )),
+      );
+      print("User registered successfully");
+    } else {
+      _showErrorSnackBar(response.body);
+      print("Registration failed: ${response.body}");
+    }
+  }
+
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 30),
+        backgroundColor: Colors.redAccent,
+        action: SnackBarAction(
+          label: 'CLOSE',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
   }
 
   //Sameers
@@ -200,8 +266,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
   final PageController _pageController = PageController();
   final GlobalKey<FormState> step1Key = GlobalKey<FormState>();
 
-   DateFormat format = DateFormat("dd/MM/yyyy");
-    
+  DateFormat format = DateFormat("dd/MM/yyyy");
 
   @override
   Widget build(BuildContext context) {
@@ -328,7 +393,7 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     Expanded(
                       child: PageView(
                         controller: _pageController,
-                       // physics: const NeverScrollableScrollPhysics(),
+                        // physics: const NeverScrollableScrollPhysics(),
                         onPageChanged: (pageIndex) {
                           setState(() {
                             currentStep = pageIndex + 1;
@@ -341,18 +406,18 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             fatherNameController: fatherNameController,
                             birthPlaceController: birthPlaceController,
                             dobController: dobController,
-                            cityController:cityController ,
-                            stateController:stateController ,
-
+                            cityController: cityController,
+                            stateController: stateController,
                             onStateChanged: (value) {
                               setState(() {
-
-                                selectedState = value; // Update selectedState in parent
+                                selectedState =
+                                    value; // Update selectedState in parent
                               });
                             },
                             onCityChanged: (value) {
                               setState(() {
-                                selectedCity = value; // Update selectedCity in parent
+                                selectedCity =
+                                    value; // Update selectedCity in parent
                               });
                             },
                             selectedGender: selectedGender,
@@ -400,14 +465,13 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                             formKey: stepKeys[2],
                           ),
                           _buildPasswordScreenPlaceholder(screenHeight),
-
                         ],
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.03),
 
                     Padding(
-                      padding:  EdgeInsets.only(left: screenHeight*0.035),
+                      padding: EdgeInsets.only(left: screenHeight * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -433,137 +497,142 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                               ),
                             ),
                           ),
-                         ElevatedButton(
-                        onPressed: () {
-                          if (currentStep < 4) {
-                            print("Proceed pressed at step: $currentStep");
+                          ElevatedButton(
+                            onPressed: () {
+                              if (currentStep < 4) {
+                                print("Proceed pressed at step: $currentStep");
 
-                            // Step 1: Validate current step form
-                            if (stepKeys[currentStep - 1].currentState?.validate() ?? false) {
-                              if (currentStep == 1) {
-                                // Page 1: Update the UserBloc state and move to next page
-                                context.read<UserBloc>().add(UpdatePage1(
-                                  name: fullNameController.text,
-                                  fathersName: fatherNameController.text,
-                                  gender: selectedGender!,
-                                  dob: format.parse(dobController.text) ,
-                                  state: birthPlaceController.text,
-                                ));
-                                setState(() {
-                                  _pageController.nextPage(
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                  );
-                                });
-                              }
-                              else if (currentStep == 2) {
-                                // Page 2: Validate for condition and move forward
-                                if (shouldMove) {
-                                  print("Moving to the next page at step 2");
+                                // Step 1: Validate current step form
+                                if (stepKeys[currentStep - 1]
+                                        .currentState
+                                        ?.validate() ??
+                                    false) {
+                                  if (currentStep == 1) {
+                                    // Page 1: Update the UserBloc state and move to next page
+                                    context.read<UserBloc>().add(UpdatePage1(
+                                          name: fullNameController.text,
+                                          fathersName:
+                                              fatherNameController.text,
+                                          gender: selectedGender!,
+                                          dob: format.parse(dobController.text),
+                                          state: birthPlaceController.text,
+                                        ));
+                                    setState(() {
+                                      _pageController.nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    });
+                                  } else if (currentStep == 2) {
+                                    // Page 2: Validate for condition and move forward
+                                    if (shouldMove) {
+                                      print(
+                                          "Moving to the next page at step 2");
 
-                                  context.read<UserBloc>().add(UpdatePage2(
-                                    email: email,
-                                    phoneNumber: phoneNumber
-                                  ));
-                                  setState(() {
-                                    _pageController.nextPage(
-                                      duration: const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  });
+                                      context.read<UserBloc>().add(UpdatePage2(
+                                          email: email,
+                                          phoneNumber: phoneNumber));
+                                      setState(() {
+                                        _pageController.nextPage(
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      });
+                                    } else {
+                                      //ScaffoldMessenger.of(context).showSnackBar(
+                                      // SnackBar(
+                                      //   backgroundColor: Colors.white,
+                                      //   content: Text(
+                                      //     "Please verify to move forward.",
+                                      //     style: GoogleFonts.poppins(
+                                      //     color: AppColors.primaryColor,
+                                      //       fontSize: screenWidth * 0.04,
+                                      //     ),
+                                      //   ),
+                                      //   duration: const Duration(seconds: 2),
+                                      // ),
+                                      //   );
+                                    }
+                                  } else if (currentStep == 3) {
+                                    // Page 3: Update UserBloc state and move to next page
+                                    context.read<UserBloc>().add(UpdatePage3(
+                                          collegeName:
+                                              collegeNameController.text,
+                                          branch: branchNameController.text,
+                                          course: courseNameController.text,
+                                          year: yearController.text,
+                                        ));
+                                    setState(() {
+                                      _pageController.nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    });
+                                  }
                                 } else {
-                                  //ScaffoldMessenger.of(context).showSnackBar(
-                                    // SnackBar(
-                                    //   backgroundColor: Colors.white,
-                                    //   content: Text(
-                                    //     "Please verify to move forward.",
-                                    //     style: GoogleFonts.poppins(
-                                    //     color: AppColors.primaryColor,
-                                    //       fontSize: screenWidth * 0.04,
-                                    //     ),
-                                    //   ),
-                                    //   duration: const Duration(seconds: 2),
-                                    // ),
-                               //   );
+                                  print('Please fill out all required fields.');
                                 }
-                              } else if (currentStep == 3) {
-                                // Page 3: Update UserBloc state and move to next page
-                                context.read<UserBloc>().add(UpdatePage3(
-                                  collegeName: collegeNameController.text,
-                                  branch: branchNameController.text,
-                                  course: courseNameController.text,
-                                  year: yearController.text,
-                                ));
-                                setState(() {
-                                  _pageController.nextPage(
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
+                              } else if (currentStep == 4) {
+                                // Step 4: Final form submission or transition to the next screen
+                                if (stepKeys[currentStep - 1]
+                                        .currentState
+                                        ?.validate() ??
+                                    false) {
+                                  registerUser({
+                                    "full_name": fullNameController.text,
+                                    "father_name": fatherNameController.text,
+                                    "college_state":
+                                        collegeStateController.text,
+                                    "birth_place": stateController.text,
+                                    "password": passwordController.text,
+                                    "college_name": collegeNameController.text,
+                                    "branch_name": branchNameController.text,
+                                    "degree_name": courseNameController.text,
+                                    "passing_year": yearController.text,
+                                    "date_of_birth": dobController.text,
+                                    "gender": selectedGender.toString(),
+                                    "email": emailController.text,
+                                    "phone_number": phoneNumber.toString(),
+                                    "whatsapp_number": phoneNumber.toString()
+                                  });
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(builder: (_) => HomeScreen(isVerified: false,)),
+                                  // );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Please try again'),
+                                      duration: const Duration(seconds: 2),
+                                      backgroundColor: AppColors.primaryColor,
+                                    ),
                                   );
-                                });
+                                }
                               }
-                            }
-                            else {
-                              print('Please fill out all required fields.');
-                            }
-                          }
-                          else if (currentStep == 4) {
-                            // Step 4: Final form submission or transition to the next screen
-                            if (stepKeys[currentStep - 1].currentState?.validate() ?? false) {
-                              registerUser({
-                                "full_name": fullNameController.text,
-                                "father_name": fatherNameController.text,
-                                "college_state": collegeStateController.text,
-                                "birth_place": stateController.text,
-                                "password": passwordController.text,
-                                "college_name":collegeNameController.text,
-                                "branch_name": branchNameController.text,
-                                "degree_name": courseNameController.text,
-                                "passing_year": yearController.text,
-                                "date_of_birth": dobController.text,
-                                "gender": selectedGender.toString(),
-                                "email": emailController.text,
-                                "phone_number": phoneNumber.toString(),
-                                "whatsapp_number":phoneNumber.toString()
-                              });
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (_) => HomeScreen(isVerified: false,)),
-                              // );
-
-
-                            }
-                            else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Please try again'),
-                                  duration: const Duration(seconds: 2),
-                                  backgroundColor: AppColors.primaryColor,
-                                ),
-                              );
-                            }
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff0F3CC9),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.08,
-                            vertical: screenHeight * 0.015,
-                          ),
-                          child: Text(
-                            currentStep < 4 ? "Proceed" : "Submit",
-                            style: TextStyle(
-                              fontSize: screenHeight * 0.02,
-                              color: Colors.white,
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff0F3CC9),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
-
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.08,
+                                vertical: screenHeight * 0.015,
+                              ),
+                              child: Text(
+                                currentStep < 4 ? "Proceed" : "Submit",
+                                style: TextStyle(
+                                  fontSize: screenHeight * 0.02,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -689,7 +758,6 @@ class _RegisterScreenEducationalState extends State<RegisterScreenEducational> {
                     ElevatedButton(
                       onPressed: () {
                         if (otpInput.split('').reversed.join() == validOtp) {
-
                           // Valid OTP
                           setState(() {
                             shouldMove = true;
