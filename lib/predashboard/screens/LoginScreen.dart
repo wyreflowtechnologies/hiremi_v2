@@ -27,9 +27,6 @@ class _LoginScreenUpdatedState extends State<LoginScreenUpdated> {
   bool _isLoading = false;
   bool _showAnimation = false;
 
-
-
-
   final String apiUrl = "${ApiUrls.baseurl}/login/";
 
 
@@ -56,11 +53,11 @@ class _LoginScreenUpdatedState extends State<LoginScreenUpdated> {
           // Assuming the API returns a success response with a JSON body
           final responseData = json.decode(response.body);
           print('Login Successful: ${responseData['message']}');
-
-          setState(() {
+            setState(() {
             _isLoading = false;
             _showAnimation = false;
           });
+        
 
           Navigator.push(
             context,
@@ -113,10 +110,6 @@ class _LoginScreenUpdatedState extends State<LoginScreenUpdated> {
       }
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

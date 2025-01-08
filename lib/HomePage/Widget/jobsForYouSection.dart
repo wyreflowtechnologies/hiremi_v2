@@ -122,9 +122,7 @@ class JobsForYouSection extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
-                            onPressed: () {
-                             
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                               padding: EdgeInsets.symmetric(
@@ -168,19 +166,28 @@ class JobsForYouSection extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: screenWidth * 0.02),
       padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.02,
+        horizontal: screenWidth * 0.01,
         vertical: screenWidth * 0.01,
       ),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(screenWidth * 0.02),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: screenWidth * 0.035,
-        ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.circle,
+            size: 5,
+            color: Colors.grey,
+          ),
+          SizedBox(width: 2),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: screenWidth * 0.030,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -511,7 +511,7 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final titleSize = size.width * 0.032;
-    final subtitleSize = size.width * 0.025;
+    final subtitleSize = size.width * 0.024;
     final imageHeight = size.width * 0.18;
     final padding = size.width * 0.04;
 

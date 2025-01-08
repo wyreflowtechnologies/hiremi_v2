@@ -3,8 +3,6 @@ import 'dart:ui';
 
 import 'package:pre_dashboard/HomePage/Widget/customPopup.dart';
 
-
-
 class VerificationSection extends StatelessWidget {
   final List<VerificationStep> steps;
   final int currentStep;
@@ -51,7 +49,7 @@ class VerificationSection extends StatelessWidget {
       children: [
         Container(
           width: screenWidth,
-          height: screenHeight * 0.2,
+          height: screenHeight * 0.26,
           decoration: BoxDecoration(
             color: const Color(0xFF0F3CC9),
             borderRadius: BorderRadius.only(
@@ -69,7 +67,7 @@ class VerificationSection extends StatelessWidget {
             },
             child: Container(
               width: screenWidth * 0.874,
-              height: screenHeight * 0.156,
+              height: screenHeight * 0.21,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(screenWidth * 0.025),
@@ -86,7 +84,7 @@ class VerificationSection extends StatelessWidget {
                         'Verify Your Account Today!',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: screenWidth * 0.03,
+                          fontSize: screenWidth * 0.04,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -125,8 +123,8 @@ class VerificationSection extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: screenWidth * 0.0675,
-          height: screenWidth * 0.0675,
+          width: screenWidth * 0.1,
+          height: screenWidth * 0.1,
           decoration: BoxDecoration(
             color: step.isActive ? const Color(0xFF002496) : Colors.white,
             borderRadius: BorderRadius.circular(screenWidth * 0.0675),
@@ -137,7 +135,7 @@ class VerificationSection extends StatelessWidget {
                 ? Icon(
                     Icons.check,
                     color: Colors.white,
-                    size: screenWidth * 0.04,
+                    size: screenWidth * 0.05,
                   )
                 : Text(
                     step.number.toString(),
@@ -159,7 +157,7 @@ class VerificationSection extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
-              fontSize: screenWidth * 0.0114,
+              fontSize: screenWidth * 0.023,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -176,7 +174,7 @@ class VerificationSection extends StatelessWidget {
       onTap: onVerifyPressed,
       child: Container(
         width: screenWidth * 0.75,
-        height: screenHeight * 0.0325,
+        height: screenHeight * 0.0385,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(screenWidth * 0.0105),
@@ -192,15 +190,15 @@ class VerificationSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.new_releases,
+              Icons.verified,
               color: const Color(0xFF0F3CC9),
-              size: screenWidth * 0.036,
+              size: screenWidth * 0.046,
             ),
             SizedBox(width: screenWidth * 0.007),
             Text(
               'Get Verified',
               style: TextStyle(
-                fontSize: screenWidth * 0.035,
+                fontSize: screenWidth * 0.045,
                 fontWeight: FontWeight.w500,
                 color: const Color(0xFF0F3CC9),
               ),

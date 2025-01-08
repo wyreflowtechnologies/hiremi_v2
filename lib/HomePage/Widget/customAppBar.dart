@@ -24,7 +24,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+          padding:
+              EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.04),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.05,
             width: MediaQuery.of(context).size.height * 0.05,

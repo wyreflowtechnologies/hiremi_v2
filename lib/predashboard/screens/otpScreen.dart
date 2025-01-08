@@ -5,10 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pre_dashboard/API.dart';
 import 'package:pre_dashboard/predashboard/Services/user_service.dart';
 import 'package:pre_dashboard/predashboard/screens/forgot_pass.dart';
+import 'package:pre_dashboard/predashboard/widgets/otpInput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../Model/enum.dart';
-import '../Widgets/otpInput.dart';
+// import '../Widgets/otpInput.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({super.key});
