@@ -85,7 +85,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(selectedIndex: selectedIndex, onItemTapped: onItemTapped)
+   //   bottomNavigationBar: CustomBottomNavBar(selectedIndex: selectedIndex, onItemTapped: onItemTapped)
     );
   }
 }

@@ -18,19 +18,30 @@ import 'statusScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool isVerified;
-  const HomeScreen({Key? key, required this.isVerified}) : super(key: key);
+  final bool animation;
+  const HomeScreen({Key? key, required this.isVerified,
+    required this.animation,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
-  bool _isFeaturedSectionVisible = false;
+ late bool animation ;
+ bool featureSectionAnimation = false;
+
+// bool featureSection=false;
   @override
   void initState() {
     super.initState();
+    animation = widget.animation;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-     _showAlertBox(context);
+      if(animation){
+        _showAlertBox(context);
+
+      }
+
     });
   }
 
@@ -40,176 +51,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
 
 
 
-  // void _showAlertBox(BuildContext context) {
-  //   // Initialize the confetti controller
-  //   ConfettiController _confettiController =
-  //   ConfettiController(duration: const Duration(seconds: 6));
-  //
-  //   // Start the confetti animation
-  //   _confettiController.play();
-  //
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context) {
-  //       // Get screen size using MediaQuery
-  //       double screenHeight = MediaQuery.of(context).size.height;
-  //       double screenWidth = MediaQuery.of(context).size.width;
-  //
-  //       // Animation controller to control fade-in effect
-  //       AnimationController _animationController = AnimationController(
-  //         duration: const Duration(seconds: 3), // Duration of the fade-in effect
-  //         vsync: this, // Use `this` because `TickerProviderStateMixin` is mixed in
-  //       );
-  //
-  //       // Fade animation
-  //       Animation<double> _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
-  //           .animate(CurvedAnimation(
-  //         parent: _animationController,
-  //         curve: Curves.easeIn,
-  //       ));
-  //
-  //       // Start the animation when the dialog is built
-  //       _animationController.forward();
-  //
-  //       return AlertDialog(
-  //         contentPadding: EdgeInsets.zero, // Remove default padding
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             // Upper blue part with confetti animation
-  //             ClipRRect(
-  //               borderRadius: const BorderRadius.only(
-  //                 topLeft: Radius.circular(20.0),
-  //                 topRight: Radius.circular(20.0),
-  //               ),
-  //
-  //               child: Stack(
-  //                 children: [
-  //                   Container(
-  //                     color:Color(0xFF163EC8),
-  //                     height: screenHeight * 0.22,
-  //                     width: screenWidth * 0.8,
-  //                     child: Center(
-  //                       child: Padding(
-  //                         padding:  EdgeInsets.only(left: screenWidth*0.28),
-  //                         child: Text(
-  //                           "Not just a milestone, but \na masterpiece of\nsuccess!",
-  //                           style:  TextStyle(
-  //                             color: Colors.white,
-  //                             fontSize:screenWidth*0.04,
-  //                             fontWeight: FontWeight.bold, // Make text bold
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //
-  //                   // Gap between the container and the image
-  //                   Positioned(
-  //                     top: screenHeight * 0.04, // Position this below the container
-  //                     left: screenHeight * 0.02, // Position this below the container
-  //
-  //                     child: Image.asset("assets/images/award.png",
-  //                     height: screenWidth*0.29,
-  //                       width: screenWidth*0.2,
-  //                     ),
-  //                   ),
-  //
-  //                   Positioned.fill(
-  //                     child: Align(
-  //                       alignment: Alignment.center,
-  //                       child: ConfettiWidget(
-  //                         confettiController: _confettiController,
-  //                         blastDirectionality: BlastDirectionality.explosive,
-  //                         maxBlastForce: 40, // Lower blast force for slower movement
-  //                         minBlastForce: 30, // Lower blast force for slower movement
-  //                         emissionFrequency: 0.05, // Slightly slower frequency
-  //                         numberOfParticles: 50, // Keep intensity the same
-  //                         gravity: 0.7, // Reduced gravity for slower rain effect
-  //                         shouldLoop: true, // Keep animation looping
-  //                         colors: const [
-  //                           Colors.red,
-  //                           Colors.green,
-  //                           Colors.blue,
-  //                           Colors.yellow,
-  //                           Colors.orange,
-  //                           Colors.purple,
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               )
-  //               ,
-  //             ),
-  //             // White part with a button and animated text
-  //             Container(
-  //               color: Colors.transparent,
-  //               height: screenHeight * 0.18,
-  //               width: screenWidth * 0.8,
-  //               child: Padding(
-  //                 padding: EdgeInsets.only(top: screenWidth * 0.05),
-  //                 child: Column(
-  //                   children: [
-  //                     FadeTransition(
-  //                       opacity: _fadeAnimation,
-  //                       child: RichText(
-  //                         textAlign: TextAlign.center,
-  //                         text: TextSpan(
-  //                           style: const TextStyle(
-  //                             fontSize: 18.0,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Colors.black,
-  //                           ),
-  //                           children: [
-  //                             TextSpan(
-  //                               text: "Congratulations!\n",
-  //                               style: TextStyle(color: Color(0xFF163EC8),), // Change this color as needed
-  //                             ),
-  //                             TextSpan(
-  //                               text: "Your account has been created",
-  //                             ),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ),
-  //
-  //                     const SizedBox(height: 10),
-  //
-  //                     ElevatedButton(
-  //                       onPressed: () {
-  //                         Navigator.of(context).pop();
-  //                         setState(() {
-  //                           _isFeaturedSectionVisible = true; // Show FeaturedSection
-  //                         });
-  //                       },
-  //                       style: ElevatedButton.styleFrom(
-  //                         foregroundColor: Colors.blue, backgroundColor: Colors.white, // Text color
-  //                         side: BorderSide(color: Color(0xFF163EC8),), // Border color
-  //                       ),
-  //                       child: Text("Continue",
-  //                         style: TextStyle(
-  //                           color: Color(0xFF163EC8),
-  //                         ),
-  //                       ),
-  //                     )
-  //
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  //
-  //   // Dispose of the controller after animation
-  //   Future.delayed(const Duration(seconds: 4), () {
-  //     _confettiController.dispose();
-  //   });
-  // }
+
   void _showAlertBox(BuildContext context) {
     // Initialize the confetti controller
     ConfettiController _confettiController =
@@ -354,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 setState(() {
-                                  _isFeaturedSectionVisible = true; // Show FeaturedSection
+                                  featureSectionAnimation =true; // Enable FeaturedSection animation
                                 });
                               },
                               style: ElevatedButton.styleFrom(
@@ -415,15 +257,21 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
 
             VerificationSection(),
             CarouselSection(),
-            // FeaturedSection(),
-            Container(
-              color: Colors.white,
-              height: screenHeight * 0.420, // Use a percentage of screen height (e.g., 30% of screen height)
 
-              child: _isFeaturedSectionVisible
-                  ? FeaturedSection(isVerified:widget.isVerified) // Show the FeaturedSection when true
-                  : Container(), // Empty container when false (still preserves the space)
-            ),
+        FeaturedSection(isVerified: widget.isVerified,animation: animation,),
+            // Container(
+            //   color: Colors.white,
+            //   height: screenHeight * 0.420, // Use a percentage of screen height (e.g., 30% of screen height)
+            //
+            //   child: animation
+            //       ? FeaturedSection(isVerified:widget.isVerified, animation: featureSectionAnimation,
+            //
+            //   ) // Show the FeaturedSection when true
+            //       : Container(
+            //     color: Colors.redAccent,
+            //   ), // Empty container when false (still preserves the space)
+            // ),
+
             JobsForYouSection(),
             SizedBox(
               height: 10,
@@ -440,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
 
     return WillPopScope(
       onWillPop: ()async{
-        return false;
+        return true;
       },
       child: Scaffold(
         appBar: const CustomAppBar(),
