@@ -24,21 +24,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool _isFeaturedSectionVisible = false;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-     _showAlertBox(context);
+      _showAlertBox(context);
     });
   }
-
-
-
-
-
-
 
   // void _showAlertBox(BuildContext context) {
   //   // Initialize the confetti controller
@@ -213,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
   void _showAlertBox(BuildContext context) {
     // Initialize the confetti controller
     ConfettiController _confettiController =
-    ConfettiController(duration: const Duration(seconds: 6));
+        ConfettiController(duration: const Duration(seconds: 6));
 
     // Start the confetti animation
     _confettiController.play();
@@ -235,13 +229,15 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
 
               // Animation controller to control fade-in effect
               AnimationController _animationController = AnimationController(
-                duration: const Duration(seconds: 3), // Duration of the fade-in effect
-                vsync: this, // Use `this` because `TickerProviderStateMixin` is mixed in
+                duration: const Duration(
+                    seconds: 3), // Duration of the fade-in effect
+                vsync:
+                    this, // Use `this` because `TickerProviderStateMixin` is mixed in
               );
 
               // Fade animation
-              Animation<double> _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
-                  .animate(CurvedAnimation(
+              Animation<double> _fadeAnimation =
+                  Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                 parent: _animationController,
                 curve: Curves.easeIn,
               ));
@@ -264,17 +260,19 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                         children: [
                           Container(
                             color: Color(0xFF163EC8),
-                            height: screenHeight * 0.22,
+                            height: screenHeight * 0.18,
                             width: screenWidth * 0.8,
                             child: Center(
                               child: Padding(
-                                padding: EdgeInsets.only(left: screenWidth * 0.28),
+                                padding:
+                                    EdgeInsets.only(left: screenWidth * 0.28),
                                 child: Text(
                                   "Not just a milestone, but \na masterpiece of\nsuccess!",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: screenWidth * 0.04,
-                                    fontWeight: FontWeight.bold, // Make text bold
+                                    fontWeight:
+                                        FontWeight.bold, // Make text bold
                                   ),
                                 ),
                               ),
@@ -282,8 +280,10 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                           ),
                           // Gap between the container and the image
                           Positioned(
-                            top: screenHeight * 0.04, // Position this below the container
-                            left: screenHeight * 0.02, // Position this below the container
+                            top: screenHeight *
+                                0.02, // Position this below the container
+                            left: screenHeight *
+                                0.02, // Position this below the container
                             child: Image.asset(
                               "assets/images/award.png",
                               height: screenWidth * 0.29,
@@ -295,12 +295,18 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                               alignment: Alignment.center,
                               child: ConfettiWidget(
                                 confettiController: _confettiController,
-                                blastDirectionality: BlastDirectionality.explosive,
-                                maxBlastForce: 40, // Lower blast force for slower movement
-                                minBlastForce: 30, // Lower blast force for slower movement
-                                emissionFrequency: 0.05, // Slightly slower frequency
-                                numberOfParticles: 50, // Keep intensity the same
-                                gravity: 0.7, // Reduced gravity for slower rain effect
+                                blastDirectionality:
+                                    BlastDirectionality.explosive,
+                                maxBlastForce:
+                                    20, // Lower blast force for slower movement
+                                minBlastForce:
+                                    10, // Lower blast force for slower movement
+                                emissionFrequency:
+                                    0.05, // Slightly slower frequency
+                                numberOfParticles:
+                                    50, // Keep intensity the same
+                                gravity:
+                                    0.7, // Reduced gravity for slower rain effect
                                 shouldLoop: true, // Keep animation looping
                                 colors: const [
                                   Colors.red,
@@ -318,7 +324,13 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                     ),
                     // White part with a button and animated text
                     Container(
-                      color: Colors.transparent,
+                      // color: Colors.transparent,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0),
+                          )),
                       height: screenHeight * 0.18,
                       width: screenWidth * 0.8,
                       child: Padding(
@@ -354,13 +366,15 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 setState(() {
-                                  _isFeaturedSectionVisible = true; // Show FeaturedSection
+                                  _isFeaturedSectionVisible =
+                                      true; // Show FeaturedSection
                                 });
                               },
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.blue,
                                 backgroundColor: Colors.white, // Text color
-                                side: BorderSide(color: Color(0xFF163EC8)), // Border color
+                                side: BorderSide(
+                                    color: Color(0xFF163EC8)), // Border color
                               ),
                               child: Text(
                                 "Continue",
@@ -388,11 +402,6 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
     });
   }
 
-
-
-
-
-
   int _selectedIndex = 0;
   int currentIndex = 0;
 
@@ -407,21 +416,21 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
     double screenHeight = MediaQuery.of(context).size.height;
     // Move _screens to the build method or make it a getter
     final List<Widget> screens = [
-
       SingleChildScrollView(
-
         child: Column(
           children: [
-
             VerificationSection(),
             CarouselSection(),
             // FeaturedSection(),
             Container(
               color: Colors.white,
-              height: screenHeight * 0.420, // Use a percentage of screen height (e.g., 30% of screen height)
+              height: screenHeight *
+                  0.420, // Use a percentage of screen height (e.g., 30% of screen height)
 
               child: _isFeaturedSectionVisible
-                  ? FeaturedSection(isVerified:widget.isVerified) // Show the FeaturedSection when true
+                  ? FeaturedSection(
+                      isVerified: widget
+                          .isVerified) // Show the FeaturedSection when true
                   : Container(), // Empty container when false (still preserves the space)
             ),
             JobsForYouSection(),
@@ -431,7 +440,6 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
           ],
         ),
       ),
-
       const JobsScreen(),
       const AskExpertPage(),
       const StatusScreen(),
@@ -439,7 +447,7 @@ class _HomeScreenState extends State<HomeScreen>with TickerProviderStateMixin {
     ];
 
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         return false;
       },
       child: Scaffold(

@@ -294,8 +294,6 @@ class FeaturedSection extends StatelessWidget {
             ),
           ),
         ),
-
-
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -331,47 +329,53 @@ class FeaturedSection extends StatelessWidget {
                 //     showCustomPopup(context);
                 //
                 //   }
-                if(isVerified){
-                  switch(key){
+                if (isVerified) {
+                  switch (key) {
                     case 'askExpert':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to AskExpertPage');
                       break;
                     case 'internship':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to InternshipPage');
                       break;
                     case 'status':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to StatusPage');
                       break;
                     case 'freshers':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to FreshersPage');
                       break;
                     case 'hiremi360':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to HireMi360Page');
                       break;
                     case 'experience':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AskExpertPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AskExpertPage()),
                       );
                       print('Navigating to ExperiencePage');
                       break;
@@ -380,18 +384,15 @@ class FeaturedSection extends StatelessWidget {
                       break;
                   }
                   print("Value of isVerified $isVerified");
-                }
-                else{
+                } else {
                   showCustomPopup(context);
                   print("Value of isVerified $isVerified");
-
                 }
               },
-              index: index,  // Pass the index to FeatureCard
+              index: index, // Pass the index to FeatureCard
             );
           },
         ),
-
       ],
     );
   }
@@ -415,9 +416,6 @@ class FeaturedSection extends StatelessWidget {
     }
   }
 }
-
-
-
 
 class FeatureCard extends StatefulWidget {
   final String title;
@@ -443,11 +441,8 @@ class FeatureCard extends StatefulWidget {
   _FeatureCardState createState() => _FeatureCardState();
 }
 
-
-
-
-
-class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin {
+class _FeatureCardState extends State<FeatureCard>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _springAnimation;
@@ -464,8 +459,10 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
 
     // Set the slide direction based on the index
     final slideTween = Tween<Offset>(
-      begin: widget.index.isEven ? Offset(-1.0, 0) : Offset(1.0, 0), // Use left for even, right for odd
-      end: Offset.zero,  // To original position
+      begin: widget.index.isEven
+          ? Offset(-1.0, 0)
+          : Offset(1.0, 0), // Use left for even, right for odd
+      end: Offset.zero, // To original position
     );
     _slideAnimation = slideTween.animate(
       CurvedAnimation(
@@ -477,13 +474,13 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
     // Spring animation for the spring-like effect with a more dramatic bounce
     final springSimulation = SpringSimulation(
       SpringDescription(
-        mass: 2.0,           // Increased mass for slower bounce
-        stiffness: 200.0,    // Higher stiffness for a more pronounced bounce
-        damping: 2.0,        // Increased damping to simulate a bounce back
+        mass: 2.0, // Increased mass for slower bounce
+        stiffness: 200.0, // Higher stiffness for a more pronounced bounce
+        damping: 2.0, // Increased damping to simulate a bounce back
       ),
-      0.0,                  // Initial position (rest position)
-      1.0,                  // End position (fully stretched)
-      0.0,                  // Initial velocity
+      0.0, // Initial position (rest position)
+      1.0, // End position (fully stretched)
+      0.0, // Initial velocity
     );
 
     // Use the spring simulation for animation
@@ -496,7 +493,7 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
 
     // Introduce delay for the animation sequence based on the row index
     Future.delayed(Duration(milliseconds: widget.index * 300), () {
-      _controller.forward();  // Trigger animation
+      _controller.forward(); // Trigger animation
     });
   }
 
@@ -511,7 +508,7 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
     final size = MediaQuery.of(context).size;
 
     final titleSize = size.width * 0.032;
-    final subtitleSize = size.width * 0.025;
+    final subtitleSize = size.width * 0.024;
     final imageHeight = size.width * 0.18;
     final padding = size.width * 0.04;
 
@@ -524,13 +521,14 @@ class _FeatureCardState extends State<FeatureCard> with TickerProviderStateMixin
           return SlideTransition(
             position: _slideAnimation,
             child: Transform.scale(
-              scale: _springAnimation.value,  // Apply spring effect to scale
+              scale: _springAnimation.value, // Apply spring effect to scale
               child: child,
             ),
           );
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding * 0.75),
+          padding: EdgeInsets.symmetric(
+              horizontal: padding, vertical: padding * 0.75),
           decoration: BoxDecoration(
             border: Border.all(
               color: widget.bordercolor,

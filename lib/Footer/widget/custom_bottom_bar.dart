@@ -35,7 +35,7 @@ class _CustombottombarState extends State<CustomBottomBar> {
           ),
           boxShadow: [
             BoxShadow(
-         //     color: Colors.black.withValues(alpha: 0.1),
+              //     color: Colors.black.withValues(alpha: 0.1),
               color: Colors.black,
               blurRadius: 5,
               offset: const Offset(0, 3),
@@ -69,18 +69,15 @@ class _CustombottombarState extends State<CustomBottomBar> {
                 index: 3,
               ),
               _buildNavItem(
-                  assetPath: 'assets/images/hiremi360.png',
+                  assetPath: 'assets/images/Hiremi360.png',
                   label: '360',
-                  index: 4
-              )
+                  index: 4)
             ],
           ),
         ),
       ),
     );
   }
-
-
 
   Widget _buildNavItem({
     required String assetPath,
@@ -102,7 +99,8 @@ class _CustombottombarState extends State<CustomBottomBar> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen(isVerified: false)),
+              MaterialPageRoute(
+                  builder: (context) => HomeScreen(isVerified: false)),
             );
           }
 
@@ -114,7 +112,6 @@ class _CustombottombarState extends State<CustomBottomBar> {
           }
           if (index == 3) {
             print("HElldss");
-
           }
           if (index == 4) {
             Navigator.push(
@@ -122,7 +119,6 @@ class _CustombottombarState extends State<CustomBottomBar> {
               MaterialPageRoute(builder: (context) => ControllerScreen()),
             );
           }
-
         }
       },
       child: Column(
